@@ -2,9 +2,10 @@
 
 namespace Modules\Management\DTO\Permission;
 
+use App\Contracts\Abstracts\DTO\AbstractObjectTransfer;
 use App\Contracts\Interfaces\DTO\ObjectTransferable;
 
-readonly class PermissionDTO implements ObjectTransferable
+readonly class PermissionDTO extends AbstractObjectTransfer implements ObjectTransferable
 {
     public bool $isDefault;
     public array $description;
@@ -21,12 +22,5 @@ readonly class PermissionDTO implements ObjectTransferable
             'is_default' => $this->isDefault,
             'description' => json_encode($this->description),
         ];
-    }
-
-    public function toNonNullArray(): array
-    {
-        return array_filter($this->toArray(), function ($value) {
-            return !is_null($value);
-        });
     }
 }

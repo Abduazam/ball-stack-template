@@ -142,5 +142,11 @@ return [
         'buttons' => [
             'create' => 'Create new :model',
         ],
+
+        'imports' => [
+            'users' => "Importing users",
+            'roles' => "Importing roles",
+            'permissions' => "Importing permissions",
+        ]
     ]
 ];

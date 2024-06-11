@@ -2,9 +2,10 @@
 
 namespace Modules\Management\DTO\Role;
 
+use App\Contracts\Abstracts\DTO\AbstractObjectTransfer;
 use App\Contracts\Interfaces\DTO\ObjectTransferable;
 
-readonly class RoleDTO implements ObjectTransferable
+readonly class RoleDTO extends AbstractObjectTransfer implements ObjectTransferable
 {
     public string $name;
     public array $permissions;
@@ -20,12 +21,5 @@ readonly class RoleDTO implements ObjectTransferable
         return [
             'name' => $this->name,
         ];
-    }
-
-    public function toNonNullArray(): array
-    {
-        return array_filter($this->toArray(), function ($value) {
-            return !is_null($value);
-        });
     }
 }

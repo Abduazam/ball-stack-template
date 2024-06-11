@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Settings;
 
+use App\Contracts\Enums\Route\RoutePathEnum;
 use App\Contracts\Traits\Livewire\Dispatches\DispatchingTrait;
 use App\Handlers\Import\ImportHandler;
 use Illuminate\Bus\Batch;
@@ -77,7 +78,9 @@ class Import extends Component
     public function render(PermissionRepository $permissionRepository): View
     {
         return view('livewire.settings.import', [
-            'sections' => $permissionRepository->imports(),
+            'sections' => $permissionRepository->findByClosure(function ($query) {
+                return $query->where('name', 'like', '%.import')->where('name', '!=', RoutePathEnum::IMPORT->value);
+            }),
         ]);
     }
 }

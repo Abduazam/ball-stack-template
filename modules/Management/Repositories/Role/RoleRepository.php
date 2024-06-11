@@ -2,13 +2,14 @@
 
 namespace Modules\Management\Repositories\Role;
 
+use App\Contracts\Interfaces\Repository\Repositorable;
 use App\Models\Management\Role;
 use Closure;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Modules\Management\Filters\Role\RoleFilterQuery;
 
-class RoleRepository
+class RoleRepository implements Repositorable
 {
     public function all(): Collection
     {

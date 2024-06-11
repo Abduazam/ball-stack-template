@@ -9,6 +9,8 @@ abstract class AbstractImport
 {
     protected int $chunkSize = 1000;
 
+    abstract protected function insert(Generator $collection): void;
+
     public function generators($collection, ?Closure $function = null): Generator
     {
         $collection = $collection->slice(1);

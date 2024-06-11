@@ -2,10 +2,11 @@
 
 namespace Modules\Settings\DTO\Profile;
 
+use App\Contracts\Abstracts\DTO\AbstractObjectTransfer;
 use App\Contracts\Interfaces\DTO\ObjectTransferable;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
-readonly class ProfileDTO implements ObjectTransferable
+readonly class ProfileDTO extends AbstractObjectTransfer implements ObjectTransferable
 {
     public string $name;
     public string $email;
@@ -28,12 +29,5 @@ readonly class ProfileDTO implements ObjectTransferable
             'password' => $this->password,
             'image' => $this->image,
         ];
-    }
-
-    public function toNonNullArray(): array
-    {
-        return array_filter($this->toArray(), function ($value) {
-            return !is_null($value);
-        });
     }
 }

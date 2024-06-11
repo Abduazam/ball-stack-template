@@ -11,7 +11,7 @@ use OpenSpout\Common\Exception\UnsupportedTypeException;
 use OpenSpout\Writer\Exception\WriterNotOpenedException;
 use Rap2hpoutre\FastExcel\FastExcel;
 
-class RoleExport extends AbstractExport implements Exportable
+final class RoleExport extends AbstractExport implements Exportable
 {
     protected RoleRepository $roleRepository;
 
@@ -36,14 +36,36 @@ class RoleExport extends AbstractExport implements Exportable
         $excel = new FastExcel($this->generator($collection));
 
         $excel->export($this->path, function ($role) {
-            return [
-                'ID' => $role->id,
-                'Name' => $role->name,
-                'Users' => $role->users->pluck('email')->implode(', '),
-                'Permissions' => $role->permissions->pluck('name')->implode(', '),
-            ];
+            return $this->asArray($role);
         });
 
         return $this->publicPath();
+    }
+
+    protected function headers(): void
+    {
+        $this->headers = [
+            'id' => $this->getHeader('fields.columns.general.id'),
+            'name' => $this->getHeader('fields.columns.role.name'),
+            'users' => $this->getHeader('fields.columns.role.users'),
+            'permissions' => $this->getHeader('fields.columns.role.permissions'),
+        ];
+    }
+
+    protected function asArray($item): array
+    {
+        $result = [];
+
+        foreach ($this->headers as $attribute => $header) {
+            $value = match ($attribute) {
+                'users' => $item->users->pluck('email')->implode(', '),
+                'permissions' => $item->permissions->pluck('name')->implode(', '),
+                default => $item->$attribute,
+            };
+
+            $result[$header] = $value;
+        }
+
+        return $result;
     }
 }

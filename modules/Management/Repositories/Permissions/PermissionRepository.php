@@ -3,12 +3,14 @@
 namespace Modules\Management\Repositories\Permissions;
 
 use App\Contracts\Enums\Route\RoutePathEnum;
+use App\Contracts\Interfaces\Repository\Repositorable;
+use Closure;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Modules\Management\Filters\Permission\PermissionFilterQuery;
 use Spatie\Permission\Models\Permission;
 
-class PermissionRepository
+class PermissionRepository implements Repositorable
 {
     public function all(): Collection
     {
@@ -20,10 +22,11 @@ class PermissionRepository
         return Permission::where('id', $id)->first();
     }
 
-    public function imports()
+    public function findByClosure(Closure $function): Collection
     {
-        return Permission::where('name', 'like', '%.import')
-            ->where('name', '!=', RoutePathEnum::IMPORT->value)->get();
+        return (new PermissionFilterQuery)
+            ->closure($function)
+            ->get();
     }
 
     public function filter(string $search, int $perPage): Collection|LengthAwarePaginator

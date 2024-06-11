@@ -15,7 +15,7 @@ use OpenSpout\Reader\Exception\ReaderNotOpenedException;
 use Rap2hpoutre\FastExcel\FastExcel;
 use Throwable;
 
-class UserImport extends AbstractImport implements Importable
+final class UserImport extends AbstractImport implements Importable
 {
     protected UserRepository $userRepository;
     protected RoleRepository $roleRepository;
@@ -51,7 +51,7 @@ class UserImport extends AbstractImport implements Importable
         }
     }
 
-    private function insert(Generator $collection): void
+    protected function insert(Generator $collection): void
     {
         $existingRoles = $this->roleRepository->all()->pluck('name')->toArray();
 

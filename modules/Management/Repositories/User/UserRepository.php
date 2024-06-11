@@ -2,13 +2,14 @@
 
 namespace Modules\Management\Repositories\User;
 
+use App\Contracts\Interfaces\Repository\Repositorable;
 use App\Models\Management\User;
 use Closure;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Modules\Management\Filters\User\UserFilterQuery;
 
-class UserRepository
+class UserRepository implements Repositorable
 {
     public function all(): Collection
     {

@@ -5,9 +5,12 @@ namespace App\Contracts\Abstracts\Export;
 use App\Contracts\Classes\Livewire\ModelTranslation;
 use Generator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 abstract class AbstractExport
 {
+    protected array $headers = [];
+
     protected string $path;
 
     protected string $folder = 'exports';
@@ -18,11 +21,22 @@ abstract class AbstractExport
 
     protected int $chunkSize = 1000;
 
+    abstract protected function headers(): void;
+
+    abstract protected function asArray($item): array;
+
+    protected function getHeader(string $key): string
+    {
+        return trans($key);
+    }
+
     public function __construct(string $model)
     {
         $this->setFilename($model);
 
         $this->setPath();
+
+        $this->headers();
     }
 
     public function setFilename(string $model): void

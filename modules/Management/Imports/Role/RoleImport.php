@@ -15,7 +15,7 @@ use OpenSpout\Reader\Exception\ReaderNotOpenedException;
 use Rap2hpoutre\FastExcel\FastExcel;
 use Throwable;
 
-class RoleImport extends AbstractImport implements Importable
+final class RoleImport extends AbstractImport implements Importable
 {
     protected RoleRepository $roleRepository;
     protected PermissionRepository $permissionRepository;
@@ -52,7 +52,7 @@ class RoleImport extends AbstractImport implements Importable
         }
     }
 
-    private function insert(Generator $collection): void
+    protected function insert(Generator $collection): void
     {
         $existingPermissions = $this->permissionRepository->all()->pluck('name')->toArray();
 
@@ -81,18 +81,15 @@ class RoleImport extends AbstractImport implements Importable
             }
         }
 
-
-        (new ClosureHandler)->handle(function () use ($roles) {
+        (new ClosureHandler)->handle(function () use ($roles, $permissions) {
             $roleChunks = array_chunk($roles, $this->chunkSize);
 
             foreach ($roleChunks as $chunk) {
                 Role::insert($chunk);
             }
-        });
 
-        (new ClosureHandler)->handle(function () use ($permissions) {
             $insertedRoles = $this->roleRepository->findByClosure(function ($query) use ($permissions) {
-                return $query->whereIn('name', array_keys($permissions));
+                return $query->with('permissions')->whereIn('name', array_keys($permissions));
             });
 
             foreach ($insertedRoles as $role) {

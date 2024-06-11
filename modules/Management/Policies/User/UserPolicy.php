@@ -5,7 +5,7 @@ namespace Modules\Management\Policies\User;
 use App\Contracts\Enums\Route\RoutePathEnum;
 use App\Models\Management\User;
 
-class UserPolicy
+final class UserPolicy
 {
     protected string $route = RoutePathEnum::USER->value;
 

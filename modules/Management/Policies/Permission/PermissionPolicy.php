@@ -6,7 +6,7 @@ use App\Contracts\Enums\Route\RoutePathEnum;
 use App\Models\Management\Permission;
 use App\Models\Management\User;
 
-class PermissionPolicy
+final class PermissionPolicy
 {
     protected string $route = RoutePathEnum::PERMISSION->value;
 

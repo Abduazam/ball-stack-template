@@ -6,7 +6,7 @@ use App\Contracts\Enums\Route\RoutePathEnum;
 use App\Models\Management\Role;
 use App\Models\Management\User;
 
-class RolePolicy
+final class RolePolicy
 {
     protected string $route = RoutePathEnum::ROLE->value;
 

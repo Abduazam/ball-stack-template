@@ -12,7 +12,10 @@
                 <option value="null" selected disabled>{{ trans('fields.filters.choose') }}</option>
                 @foreach($sections as $section)
                     @can($section->name)
-                    <option value="{{ $section->name }}">{{ collect(explode('.', $section->name))->slice(2)->implode(' ') }}</option>
+                        @php
+                            $data = collect(explode('.', $section->name))->slice(2)->toArray();
+                        @endphp
+                    <option value="{{ $section->name }}">{{ trans('fields.actions.imports.' . $data[2]) }}</option>
                     @endcan
                 @endforeach
             </x-forms.select>
