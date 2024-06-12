@@ -3,7 +3,7 @@
 return [
 
     'dashboard' => [
-        'serviced' => "Услуги, полученные :company",
+        'serviced' => "Обслуживается :company",
     ],
 
     'actions' => [

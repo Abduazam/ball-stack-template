@@ -7,6 +7,7 @@ use App\Contracts\Interfaces\Import\Importable;
 use App\Handlers\Closure\ClosureHandler;
 use App\Models\Management\Role;
 use Generator;
+use Illuminate\Support\Facades\DB;
 use Modules\Management\Repositories\Permissions\PermissionRepository;
 use Modules\Management\Repositories\Role\RoleRepository;
 use OpenSpout\Common\Exception\IOException;
@@ -36,15 +37,11 @@ final class RoleImport extends AbstractImport implements Importable
     public function import(string $path): bool
     {
         try {
-            $existingRoles = $this->roleRepository->all()->pluck('name')->toArray();
-
             $collection = (new FastExcel)->withoutHeaders()->import($path);
 
-            $generatedRoles = $this->generators($collection, function ($row) use ($existingRoles) {
-                return !in_array($row[1], $existingRoles);
-            });
+            $roleData = $this->generators($collection);
 
-            $this->insert($generatedRoles);
+            $this->insert($roleData);
 
             return true;
         } catch (Throwable $exception) {
@@ -67,34 +64,82 @@ final class RoleImport extends AbstractImport implements Importable
                 'updated_at' => now(),
             ];
 
-            if (!empty($item[3])) {
-                $data = collect(explode(',', $item[3]))
-                    ->filter(function ($item) {
-                        return $item !== '';
-                    })->map(function ($item) {
-                        return trim($item);
-                    })->filter(function ($item) use ($existingPermissions) {
-                        return in_array($item, $existingPermissions);
-                    })->toArray();
+            if (filled($item[3])) {
+                $data = $this->permissions($item[3], $existingPermissions);
 
                 $permissions[$item[1]] = $data;
             }
         }
 
-        (new ClosureHandler)->handle(function () use ($roles, $permissions) {
+        (new ClosureHandler)->handle(function () use ($roles) {
             $roleChunks = array_chunk($roles, $this->chunkSize);
 
-            foreach ($roleChunks as $chunk) {
-                Role::insert($chunk);
-            }
+            $updateColumns = ['guard_name', 'created_at', 'updated_at'];
 
+            foreach ($roleChunks as $chunk) {
+                Role::upsert($chunk, ['name'], $updateColumns);
+            }
+        });
+
+        (new ClosureHandler)->handle(function () use ($permissions) {
             $insertedRoles = $this->roleRepository->findByClosure(function ($query) use ($permissions) {
                 return $query->with('permissions')->whereIn('name', array_keys($permissions));
             });
 
             foreach ($insertedRoles as $role) {
-                $role->givePermissionTo($permissions[$role->name]);
+                $newPermissions = $permissions[$role->name];
+
+                $currentPermissions = $role->permissions;
+
+                $this->revokePermissions($role, $newPermissions, $currentPermissions);
+
+                $this->givePermissions($role, $newPermissions, $currentPermissions);
             }
         });
+    }
+
+    private function revokePermissions($role, $newPermissions, $currentPermissions): void
+    {
+        $permissions = $currentPermissions->reject(function ($permission) use ($newPermissions) {
+            return in_array($permission->name, $newPermissions);
+        });
+
+        if (! empty($permissions)) {
+            $role->revokePermissionTo($permissions);
+        }
+    }
+
+    private function givePermissions($role, $newPermissions, $currentPermissions): void
+    {
+        $permissions = collect($newPermissions)->diff($currentPermissions->pluck('name')->toArray());
+
+        if (! empty($permissions)) {
+            $permissionIds = $this->permissionRepository->findByClosure(function ($query) use ($permissions) {
+                $query->whereIn('name', $permissions);
+            })->pluck('id');
+
+            $data = $permissionIds->map(function ($permissionId) use ($role) {
+                return [
+                    'permission_id' => $permissionId,
+                    'role_id' => $role->id,
+                ];
+            })->toArray();
+
+            DB::table('role_has_permissions')->insert($data);
+        }
+    }
+
+    private function permissions(string $permissions, array $existingPermissions): array
+    {
+        $data = explode(',', $permissions);
+
+        return collect($data)
+            ->filter(function ($item) {
+                return $item !== '';
+            })->map(function ($item) {
+                return trim($item);
+            })->filter(function ($item) use ($existingPermissions) {
+                return in_array($item, $existingPermissions);
+            })->toArray();
     }
 }

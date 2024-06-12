@@ -100,8 +100,8 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'import' => [
+            'cant' => ':attribute не может быть импортирован.'
         ],
     ],
 

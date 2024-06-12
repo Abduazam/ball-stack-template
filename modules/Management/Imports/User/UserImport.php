@@ -35,15 +35,11 @@ final class UserImport extends AbstractImport implements Importable
     public function import(string $path): bool
     {
         try {
-            $existingEmails = $this->userRepository->all()->pluck('email')->toArray();
-
             $collection = (new FastExcel)->withoutHeaders()->import($path);
 
-            $generatedUsers = $this->generators($collection, function ($row) use ($existingEmails) {
-                return !in_array($row[2], $existingEmails);
-            });
+            $userData = $this->generators($collection);
 
-            $this->insert($generatedUsers);
+            $this->insert($userData);
 
             return true;
         } catch (Throwable $exception) {
@@ -62,7 +58,7 @@ final class UserImport extends AbstractImport implements Importable
             $users[] = [
                 'name' => $item[1],
                 'email' => $item[2],
-                'password' => $item[3] ?? 'password',
+                'password' => $this->password($item[3]),
                 'email_verified_at' => now(),
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -76,8 +72,10 @@ final class UserImport extends AbstractImport implements Importable
         (new ClosureHandler)->handle(function () use ($users) {
             $userChunks = array_chunk($users, $this->chunkSize);
 
+            $updateColumns = ['name', 'password', 'email_verified_at', 'updated_at'];
+
             foreach ($userChunks as $chunk) {
-                User::insert($chunk);
+                User::upsert($chunk, ['email'], $updateColumns);
             }
         });
 
@@ -87,8 +85,21 @@ final class UserImport extends AbstractImport implements Importable
             });
 
             foreach ($insertedUsers as $user) {
-                $user->assignRole($roles[$user->email]);
+                if (! $user->hasRole($roles[$user->email])) {
+                    $user->syncRoles($roles[$user->email]);
+                }
             }
         });
+    }
+
+    private function password(string $value): string
+    {
+        $password = 'password';
+
+        if (filled($value)) {
+            $password = $value;
+        }
+
+        return bcrypt($password);
     }
 }

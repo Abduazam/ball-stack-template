@@ -2,6 +2,7 @@
 
 namespace Modules\Settings\Http\Forms\Import;
 
+use App\Rules\ImportSectionRule;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -16,7 +17,7 @@ class ImportForm extends Form
     public function rules(): array
     {
         return [
-            'section' => ['required', 'string', 'exists:permissions,name'],
+            'section' => ['required', 'string', 'exists:permissions,name', new ImportSectionRule],
             'file' => ['required', 'file', 'mimes:xlsx,xls'],
         ];
     }

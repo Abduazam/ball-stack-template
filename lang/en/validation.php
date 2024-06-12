@@ -172,8 +172,8 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'import' => [
+            'cant' => 'The :attribute can\'t be imported.',
         ],
     ],
 

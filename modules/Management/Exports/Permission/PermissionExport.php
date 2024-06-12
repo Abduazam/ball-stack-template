@@ -46,8 +46,8 @@ final class PermissionExport extends AbstractExport implements Exportable
         $this->headers = [
             'id' => $this->getHeader('fields.columns.general.id'),
             'name' => $this->getHeader('fields.columns.permission.name'),
-            'guard_name' => $this->getHeader('fields.columns.permission.guard_name'),
             'description' => $this->getHeader('fields.columns.permission.description'),
+            'is_default' => $this->getHeader('fields.columns.permission.is_default'),
             'roles' => $this->getHeader('fields.columns.permission.roles'),
         ];
     }
@@ -58,7 +58,7 @@ final class PermissionExport extends AbstractExport implements Exportable
 
         foreach ($this->headers as $attribute => $header) {
             $value = match ($attribute) {
-                'description' => translation($item->description),
+                'description' => $item->description,
                 'roles' => $item->roles->pluck('name')->implode(', '),
                 default => $item->$attribute
             };
