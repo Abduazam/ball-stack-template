@@ -43,7 +43,7 @@ class ImportHandler
     public function handle()
     {
         try {
-            return $this->importWithSync();
+            return $this->importWithJob();
         } catch (Throwable $exception) {
             throw new $exception;
         }

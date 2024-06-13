@@ -16,4 +16,8 @@ return [
             'import' => ":model successfully imported",
         ],
     ],
+
+    'import' => [
+        'wait' => "Please wait... The file is importing!",
+    ]
 ];

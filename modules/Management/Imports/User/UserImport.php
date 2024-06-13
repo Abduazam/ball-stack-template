@@ -7,6 +7,7 @@ use App\Contracts\Interfaces\Import\Importable;
 use App\Handlers\Closure\ClosureHandler;
 use App\Models\Management\User;
 use Generator;
+use Modules\Management\DTO\User\UserImportDTO;
 use Modules\Management\Repositories\Role\RoleRepository;
 use Modules\Management\Repositories\User\UserRepository;
 use OpenSpout\Common\Exception\IOException;
@@ -37,7 +38,7 @@ final class UserImport extends AbstractImport implements Importable
         try {
             $collection = (new FastExcel)->withoutHeaders()->import($path);
 
-            $userData = $this->generators($collection);
+            $userData = $this->generators($collection, UserImportDTO::class);
 
             $this->insert($userData);
 
@@ -54,25 +55,20 @@ final class UserImport extends AbstractImport implements Importable
         $users = [];
         $roles = [];
 
-        foreach ($collection as $item) {
-            $users[] = [
-                'name' => $item[1],
-                'email' => $item[2],
-                'password' => $this->password($item[3]),
-                'email_verified_at' => now(),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ];
 
-            if (filled($item[4]) && in_array($item[4], $existingRoles)) {
-                $roles[$item[2]] = $item[4];
+        /** @var UserImportDTO $user */
+        foreach ($collection as $user) {
+            $users[] = $user->toArray();
+
+            if (filled($user->role) && in_array($user->role, $existingRoles)) {
+                $roles[$user->email] = $user->role;
             }
         }
 
         (new ClosureHandler)->handle(function () use ($users) {
             $userChunks = array_chunk($users, $this->chunkSize);
 
-            $updateColumns = ['name', 'password', 'email_verified_at', 'updated_at'];
+            $updateColumns = ['name', 'password', 'email_verified_at'];
 
             foreach ($userChunks as $chunk) {
                 User::upsert($chunk, ['email'], $updateColumns);
@@ -90,16 +86,5 @@ final class UserImport extends AbstractImport implements Importable
                 }
             }
         });
-    }
-
-    private function password(string $value): string
-    {
-        $password = 'password';
-
-        if (filled($value)) {
-            $password = $value;
-        }
-
-        return bcrypt($password);
     }
 }

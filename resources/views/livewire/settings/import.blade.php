@@ -4,7 +4,7 @@
             <div class="spinner-border text-dark mb-2" role="status">
                 <span class="sr-only">Importing...</span>
             </div>
-            <p>Importing the file... Please wait a minute!</p>
+            <p>{{ trans('messages.import.wait') }}</p>
         </div>
     @else
         <div class="row mb-2">

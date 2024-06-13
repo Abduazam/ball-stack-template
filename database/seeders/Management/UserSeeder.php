@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
         ]);
         $admin->assignRole($adminRole);
 
-        $this->managers();
+        //$this->managers();
     }
 
     private function managers(): void

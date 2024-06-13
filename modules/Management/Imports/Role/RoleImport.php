@@ -8,6 +8,7 @@ use App\Handlers\Closure\ClosureHandler;
 use App\Models\Management\Role;
 use Generator;
 use Illuminate\Support\Facades\DB;
+use Modules\Management\DTO\Role\RoleImportDTO;
 use Modules\Management\Repositories\Permissions\PermissionRepository;
 use Modules\Management\Repositories\Role\RoleRepository;
 use OpenSpout\Common\Exception\IOException;
@@ -39,7 +40,7 @@ final class RoleImport extends AbstractImport implements Importable
         try {
             $collection = (new FastExcel)->withoutHeaders()->import($path);
 
-            $roleData = $this->generators($collection);
+            $roleData = $this->generators($collection, RoleImportDTO::class);
 
             $this->insert($roleData);
 
@@ -56,18 +57,13 @@ final class RoleImport extends AbstractImport implements Importable
         $roles = [];
         $permissions = [];
 
-        foreach ($collection as $item) {
-            $roles[] = [
-                'name' => $item[1],
-                'guard_name' => config('auth.defaults.guard'),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ];
+        foreach ($collection as $role) {
+            $roles[] = $role->toArray();
 
-            if (filled($item[3])) {
-                $data = $this->permissions($item[3], $existingPermissions);
+            if (filled($role->permissions)) {
+                $data = $this->permissions($role->permissions, $existingPermissions);
 
-                $permissions[$item[1]] = $data;
+                $permissions[$role->name] = $data;
             }
         }
 

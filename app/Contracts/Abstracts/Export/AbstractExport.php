@@ -25,11 +25,6 @@ abstract class AbstractExport
 
     abstract protected function asArray($item): array;
 
-    protected function getHeader(string $key): string
-    {
-        return trans($key);
-    }
-
     public function __construct(string $model)
     {
         $this->setFilename($model);
@@ -37,6 +32,11 @@ abstract class AbstractExport
         $this->setPath();
 
         $this->headers();
+    }
+
+    protected function getHeader(string $key): string
+    {
+        return trans($key);
     }
 
     public function setFilename(string $model): void

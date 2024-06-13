@@ -7,6 +7,7 @@ use App\Contracts\Interfaces\Import\Importable;
 use App\Handlers\Closure\ClosureHandler;
 use App\Models\Management\Permission;
 use Generator;
+use Modules\Management\DTO\Permission\PermissionImportDTO;
 use Modules\Management\Repositories\Permissions\PermissionRepository;
 use OpenSpout\Common\Exception\IOException;
 use OpenSpout\Common\Exception\UnsupportedTypeException;
@@ -37,7 +38,7 @@ final class PermissionImport extends AbstractImport implements Importable
 
             $existingPermissions = $this->permissionRepository->all()->pluck('name')->toArray();
 
-            $permissionData = $this->generators($collection, function ($item) use ($existingPermissions) {
+            $permissionData = $this->generators($collection, PermissionImportDTO::class, function ($item) use ($existingPermissions) {
                 return in_array($item[1], $existingPermissions);
             });
 
@@ -53,13 +54,8 @@ final class PermissionImport extends AbstractImport implements Importable
     {
         $permissions = [];
 
-        foreach ($collection as $item) {
-            $permissions[] = [
-                'name' => $item[1],
-                'guard_name' => config('auth.defaults.guard'),
-                'description' => $this->description($item[2]),
-                'is_default' => $item[3],
-            ];
+        foreach ($collection as $permission) {
+            $permissions[] = $permission->toArray();
         }
 
         (new ClosureHandler)->handle(function () use ($permissions) {
@@ -71,20 +67,5 @@ final class PermissionImport extends AbstractImport implements Importable
                 Permission::upsert($chunk, ['name', 'guard_name'], $updateColumns);
             }
         });
-    }
-
-    private function description(string $value): false|string|null
-    {
-        if (blank($value)) {
-            return null;
-        }
-
-        $decoded = json_decode($value, true);
-
-        if (json_last_error() === JSON_ERROR_NONE) {
-            return json_encode($decoded);
-        }
-
-        return json_encode(['error' => 'Invalid JSON']);
     }
 }

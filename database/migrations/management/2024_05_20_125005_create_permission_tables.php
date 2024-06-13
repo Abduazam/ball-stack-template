@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -30,7 +31,8 @@ return new class extends Migration
             $table->string('guard_name'); // For MySQL 8.0 use string('guard_name', 125);
             $table->json('description')->nullable();
             $table->boolean('is_default')->default(false);
-            $table->timestamps();
+            $table->timestamp('created_at')->default(new Expression('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(new Expression('CURRENT_TIMESTAMP'));
 
             $table->unique(['name', 'guard_name']);
         });
@@ -43,7 +45,8 @@ return new class extends Migration
             }
             $table->string('name', 20); // For MySQL 8.0 use string('name', 125);
             $table->string('guard_name'); // For MySQL 8.0 use string('guard_name', 125);
-            $table->timestamps();
+            $table->timestamp('created_at')->default(new Expression('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(new Expression('CURRENT_TIMESTAMP'));
             if ($teams || config('permission.testing')) {
                 $table->unique([$columnNames['team_foreign_key'], 'name', 'guard_name']);
             } else {
