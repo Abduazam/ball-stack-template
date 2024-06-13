@@ -11,14 +11,13 @@ readonly class UserImportDTO extends AbstractObjectTransfer implements ObjectTra
     public string $email;
     public string $password;
     public string $role;
+
     public function __construct(array $data)
     {
         $this->name = $data[1];
         $this->email = $data[2];
         $this->password = $data[3];
         $this->role = $data[4];
-
-
     }
 
     public function toArray(): array

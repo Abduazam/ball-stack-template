@@ -8,11 +8,15 @@ use InvalidArgumentException;
 class Redirect
 {
     protected array $redirects = [
-        'profile' => RoutePathEnum::PROFILE->value,
-        'import' => RoutePathEnum::IMPORT->value,
+        # Information
+        'language' => RoutePathEnum::LANGUAGE->value,
+        # Management
         'user' => RoutePathEnum::USER->value,
         'role' => RoutePathEnum::ROLE->value,
         'permission' => RoutePathEnum::PERMISSION->value,
+        # Settings
+        'profile' => RoutePathEnum::PROFILE->value,
+        'import' => RoutePathEnum::IMPORT->value,
     ];
 
     public function take(string $key)

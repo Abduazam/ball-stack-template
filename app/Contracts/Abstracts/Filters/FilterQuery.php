@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 abstract class FilterQuery
 {
@@ -57,6 +58,11 @@ abstract class FilterQuery
         $this->builder->limit($limit);
 
         return $this;
+    }
+
+    public function first(): ?Model
+    {
+        return $this->builder->first();
     }
 
     public function get(int $perPage = 0): Collection|LengthAwarePaginator

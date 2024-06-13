@@ -6,6 +6,8 @@ return [
         'dashboard' => 'Dashboard',
         'overview' => 'Overview',
 
+        'languages' => 'Languages',
+
         'users' => "Users",
         'roles' => "Roles",
         'permissions' => "Permissions",
@@ -15,6 +17,7 @@ return [
         'import' => 'Import',
 
         'headings' => [
+            'information' => 'Information',
             'management' => 'Management',
             'settings' => 'Settings',
         ],
@@ -31,6 +34,8 @@ return [
             'permissions' => "Permissions List",
             'permission_information' => 'Permission Info',
             'import' => 'Import Files',
+            'languages' => "Languages List",
+            'language_information' => 'Language Info',
         ],
 
         'descriptions' => [
@@ -52,9 +57,10 @@ return [
             'updated_at' => "Updated at",
         ],
 
-        'import' => [
-            'section' => "Section",
-            'file' => "File",
+        'language' => [
+            'language' => "Language",
+            'slug' => "Slug",
+            'title' => "Title",
         ],
 
         'user' => [
@@ -83,6 +89,11 @@ return [
             'is_default' => "Default",
             'roles' => "Roles",
             'role_count' => "Roles Count",
+        ],
+
+        'import' => [
+            'section' => "Section",
+            'file' => "File",
         ],
     ],
 
@@ -154,6 +165,9 @@ return [
         ],
 
         'imports' => [
+            # Information
+            'languages' => "Importing languages",
+            # Management
             'users' => "Importing users",
             'roles' => "Importing roles",
             'permissions' => "Importing permissions",

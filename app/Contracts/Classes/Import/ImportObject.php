@@ -4,6 +4,7 @@ namespace App\Contracts\Classes\Import;
 
 use App\Contracts\Enums\Route\RoutePathEnum;
 use InvalidArgumentException;
+use Modules\Information\Imports\Language\LanguageImport;
 use Modules\Management\Imports\Permission\PermissionImport;
 use Modules\Management\Imports\Role\RoleImport;
 use Modules\Management\Imports\User\UserImport;
@@ -11,6 +12,9 @@ use Modules\Management\Imports\User\UserImport;
 class ImportObject
 {
     protected array $imports = [
+        # Information
+        RoutePathEnum::LANGUAGE->value . 'import' => LanguageImport::class,
+        # Management
         RoutePathEnum::USER->value . 'import' => UserImport::class,
         RoutePathEnum::ROLE->value . 'import' => RoleImport::class,
         RoutePathEnum::PERMISSION->value . 'import' => PermissionImport::class,
@@ -19,6 +23,7 @@ class ImportObject
     public static function getImports(): array
     {
         $instance = new self();
+
         return array_keys($instance->imports);
     }
 

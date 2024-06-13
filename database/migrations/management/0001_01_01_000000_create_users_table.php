@@ -22,6 +22,8 @@ return new class extends Migration
             $table->timestamp('created_at')->default(new Expression('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(new Expression('CURRENT_TIMESTAMP'));
             $table->softDeletes();
+
+            $table->index('name');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

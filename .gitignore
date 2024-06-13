@@ -18,3 +18,13 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+# Third-part migrations
+/database/migrations/third-part
+
+# Ignore all folders in the lang directory
+/lang/*/
+
+# Unignore the en and ru folders
+!lang/en/
+!lang/ru/

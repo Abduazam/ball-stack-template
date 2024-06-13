@@ -7,11 +7,15 @@ use InvalidArgumentException;
 class ModelTranslation
 {
     protected array $models = [
-        'profile' => 'fields.nav.profile',
-        'import' => 'fields.nav.import',
+        # Information
+        'language' => 'fields.columns.language.language',
+        # Management
         'user' => 'fields.columns.user.user',
         'role' => 'fields.columns.role.role',
         'permission' => 'fields.columns.permission.permission',
+        # Settings
+        'profile' => 'fields.nav.profile',
+        'import' => 'fields.nav.import',
     ];
 
     public function take(string $key)

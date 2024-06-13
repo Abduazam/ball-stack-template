@@ -44,8 +44,7 @@
                         @endcan
 
                         @can('update', $permission)
-                            <livewire:management.permission.update wire:key="{{ 'update-role-id' . $permission->id }}"
-                                                                   :$permission/>
+                            <livewire:management.permission.update wire:key="{{ 'update-permission-id' . $permission->id }}" :$permission/>
                         @endcan
                     </x-forms.tables.td>
                     <x-forms.tables.td>{{ $loop->iteration }}</x-forms.tables.td>

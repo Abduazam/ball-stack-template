@@ -1,5 +1,5 @@
 @php
-    use Modules\Information\Repositories\LanguageRepository;
+    use Modules\Information\Repositories\Language\LanguageRepository;
 
     $languages = (new LanguageRepository())->all();
 

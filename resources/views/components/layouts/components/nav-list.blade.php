@@ -3,6 +3,11 @@
         {{ trans('fields.nav.overview') }}
     </x-partials.nav.link>
 
+    <x-partials.nav.heading>{{ trans('fields.nav.headings.information') }}</x-partials.nav.heading>
+    <x-partials.nav.link icon="si si-globe" url="dashboard.information.languages.index" :active="request()->is('dashboard/information/languages*')">
+        {{ trans('fields.nav.languages') }}
+    </x-partials.nav.link>
+
     <x-partials.nav.heading>{{ trans('fields.nav.headings.management') }}</x-partials.nav.heading>
     <x-partials.nav.link icon="si si-users" url="dashboard.management.users.index" :active="request()->is('dashboard/management/users*')">
         {{ trans('fields.nav.users') }}

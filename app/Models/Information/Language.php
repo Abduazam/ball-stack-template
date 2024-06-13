@@ -2,17 +2,18 @@
 
 namespace App\Models\Information;
 
+use App\Contracts\Traits\Models\SoftDeleting;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
+ * @property $id
  * @property $slug
  * @property $title
  */
 class Language extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeleting;
 
     protected $fillable = [
         'slug',

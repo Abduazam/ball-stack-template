@@ -5,7 +5,7 @@ namespace Modules\Settings\Http\Controllers\Locale;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\App;
-use Modules\Information\Repositories\LanguageRepository;
+use Modules\Information\Repositories\Language\LanguageRepository;
 
 class ChangeLanguageController extends Controller
 {

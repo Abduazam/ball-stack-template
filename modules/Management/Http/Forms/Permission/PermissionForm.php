@@ -6,7 +6,7 @@ use App\Models\Management\Permission;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
-use Modules\Information\Repositories\LanguageRepository;
+use Modules\Information\Repositories\Language\LanguageRepository;
 
 class PermissionForm extends Form
 {
