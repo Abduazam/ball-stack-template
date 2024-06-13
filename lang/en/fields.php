@@ -3,6 +3,7 @@
 return [
 
     'nav' => [
+        'dashboard' => 'Dashboard',
         'overview' => 'Overview',
 
         'users' => "Users",
@@ -10,6 +11,7 @@ return [
         'permissions' => "Permissions",
 
         'profile' => 'Profile',
+        'settings' => 'Settings',
         'import' => 'Import',
 
         'headings' => [
@@ -105,6 +107,9 @@ return [
     ],
 
     'buttons' => [
+        'index' => "Index",
+        'show' => "Show",
+        'edit' => "Edit",
         'create' => 'Create',
         'update' => 'Update',
         'delete' => 'Delete',
@@ -114,6 +119,11 @@ return [
         'close' => 'Close',
         'export' => 'Export',
         'import' => 'Import',
+
+        // FOR TRANSLATION
+        'welcome' => "Main page",
+        'profile' => "Profile",
+        'locale' => "Change language",
     ],
 
     'filters' => [

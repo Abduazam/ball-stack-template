@@ -7,9 +7,11 @@
     <div class="filter-table pb-4">
         <div class="row w-100 h-100 m-0 p-0 row-gap-sm-0 row-gap-2">
             <div class="col-md-2 col-12 ps-0 pe-md-2 pe-0">
-                <x-forms.buttons.link route="{{ route('dashboard.management.roles.create') }}" class="btn-primary">
-                    {{ trans('fields.actions.buttons.create', ['model' => trans('fields.columns.role.role')]) }}
-                </x-forms.buttons.link>
+                @can('create', \App\Models\Management\Role::class)
+                    <x-forms.buttons.link route="{{ route('dashboard.management.roles.create') }}" class="btn-primary">
+                        {{ trans('fields.actions.buttons.create', ['model' => trans('fields.columns.role.role')]) }}
+                    </x-forms.buttons.link>
+                @endcan
             </div>
             <div class="col-md-10 col-12 pe-0 ps-md-2 ps-0">
                 <div class="row justify-content-end row-gap-sm-0 row-gap-2">

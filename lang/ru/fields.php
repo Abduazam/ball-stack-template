@@ -3,6 +3,7 @@
 return [
 
     'nav' => [
+        'dashboard' => 'Панель управления',
         'overview' => 'Обзор',
 
         'users' => "Пользователи",
@@ -10,6 +11,7 @@ return [
         'permissions' => "Разрешения",
 
         'profile' => 'Профиль',
+        'settings' => 'Настройки',
         'import' => 'Импорт',
 
         'headings' => [
@@ -106,6 +108,9 @@ return [
     ],
 
     'buttons' => [
+        'index' => "Индекс",
+        'show' => "Просмотр",
+        'edit' => "Редактировать",
         'create' => 'Создать',
         'update' => 'Обновить',
         'delete' => 'Удалить',
@@ -115,6 +120,11 @@ return [
         'close' => 'Закрыть',
         'export' => 'Экспортировать',
         'import' => 'Импортировать',
+
+        // FOR TRANSLATION
+        'welcome' => "Главная страница",
+        'profile' => "Профиль",
+        'locale' => "Изменить язык"
     ],
 
     'filters' => [
