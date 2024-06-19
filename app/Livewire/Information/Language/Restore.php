@@ -3,11 +3,11 @@
 namespace App\Livewire\Information\Language;
 
 use App\Contracts\Traits\Livewire\Dispatches\DispatchingTrait;
-use App\Handlers\Command\CommandHandler;
-use App\Models\Information\Language;
+use App\Handlers\Action\ActionHandler;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
-use Modules\Information\Commands\Language\RestoreLanguageCommand;
+use Modules\Information\App\Actions\Language\RestoreLanguageAction;
+use Modules\Information\App\Models\Language\Language;
 
 class Restore extends Component
 {
@@ -17,8 +17,8 @@ class Restore extends Component
 
     public function restore(): void
     {
-        $response = (new CommandHandler)->handle(
-            new RestoreLanguageCommand($this->language)
+        $response = (new ActionHandler)->handle(
+            new RestoreLanguageAction($this->language)
         );
 
         $this->handleResponse($response, 'language');

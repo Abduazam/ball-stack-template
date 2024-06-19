@@ -3,11 +3,11 @@
 namespace App\Livewire\Management\Role;
 
 use App\Contracts\Traits\Livewire\Dispatches\DispatchingTrait;
-use App\Handlers\Command\CommandHandler;
-use App\Models\Management\Role;
+use App\Handlers\Action\ActionHandler;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
-use Modules\Management\Commands\Role\RestoreRoleCommand;
+use Modules\Management\App\Actions\Role\RestoreRoleAction;
+use Modules\Management\App\Models\Role\Role;
 
 class Restore extends Component
 {
@@ -17,8 +17,8 @@ class Restore extends Component
 
     public function restore(): void
     {
-        $response = (new CommandHandler)->handle(
-            new RestoreRoleCommand($this->role)
+        $response = (new ActionHandler)->handle(
+            new RestoreRoleAction($this->role)
         );
 
         $this->handleResponse($response, 'role');

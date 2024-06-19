@@ -3,15 +3,15 @@
 namespace App\Livewire\Management\Role;
 
 use App\Contracts\Traits\Livewire\Dispatches\DispatchingTrait;
-use App\Handlers\Command\CommandHandler;
+use App\Handlers\Action\ActionHandler;
 use Illuminate\Contracts\View\View;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Lazy;
 use Livewire\Component;
-use Modules\Management\Commands\Role\CreateRoleCommand;
-use Modules\Management\Http\Forms\Role\RoleForm;
-use Modules\Management\Http\Methods\Role\RoleMethods;
-use Modules\Management\Repositories\Permissions\PermissionRepository;
+use Modules\Management\App\Actions\Role\CreateRoleAction;
+use Modules\Management\App\Http\Forms\Role\RoleForm;
+use Modules\Management\App\Http\Methods\Role\RoleMethods;
+use Modules\Management\App\Repositories\Permissions\PermissionRepository;
 
 #[Lazy]
 class Create extends Component
@@ -27,8 +27,8 @@ class Create extends Component
     {
         $validated = $this->form->validate();
 
-        $response = (new CommandHandler)->handle(
-            new CreateRoleCommand($validated)
+        $response = (new ActionHandler)->handle(
+            new CreateRoleAction($validated)
         );
 
         $this->handleResponse($response, 'role', 'view');

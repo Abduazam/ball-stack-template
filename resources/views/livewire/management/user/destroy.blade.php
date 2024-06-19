@@ -8,7 +8,7 @@
     </x-forms.buttons.open-modal>
 
     <x-forms.modal action="destroy" :target="$target">
-        <x-pages.management.user.disabled-form />
+        <x-management::pages.user.disabled-form />
 
         <x-forms.modals.footer>
             <x-forms.buttons.submit class="btn-sm btn-alt-danger">{{ trans('fields.buttons.destroy') }}</x-forms.buttons.submit>

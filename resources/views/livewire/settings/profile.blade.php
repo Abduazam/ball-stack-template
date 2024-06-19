@@ -1,5 +1,5 @@
 <div>
-    <x-sections.block title="{{ trans('fields.blocks.titles.user_profile') }}" icon="fa fa-user-circle">
+    <x-sections.block title="{{ trans('fields.blocks.titles.user_profile') }}">
         <x-forms.form action="update">
             <div class="row items-push">
                 <div class="col-lg-3">

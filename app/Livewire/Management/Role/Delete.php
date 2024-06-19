@@ -3,12 +3,12 @@
 namespace App\Livewire\Management\Role;
 
 use App\Contracts\Traits\Livewire\Dispatches\DispatchingTrait;
-use App\Handlers\Command\CommandHandler;
-use App\Models\Management\Role;
+use App\Handlers\Action\ActionHandler;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
 use Livewire\Component;
-use Modules\Management\Commands\Role\DeleteRoleCommand;
+use Modules\Management\App\Actions\Role\DeleteRoleAction;
+use Modules\Management\App\Models\Role\Role;
 
 class Delete extends Component
 {
@@ -18,8 +18,8 @@ class Delete extends Component
 
     public function delete(): void
     {
-        $response = (new CommandHandler)->handle(
-            new DeleteRoleCommand($this->role)
+        $response = (new ActionHandler)->handle(
+            new DeleteRoleAction($this->role)
         );
 
         $this->handleResponse($response, 'role');

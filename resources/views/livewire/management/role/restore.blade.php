@@ -8,7 +8,7 @@
     </x-forms.buttons.open-modal>
 
     <x-forms.modal action="restore" :target="$target">
-        <x-pages.management.role.disabled-form />
+        <x-management::pages.role.disabled-form />
 
         <x-forms.modals.footer>
             <x-forms.buttons.submit class="btn-sm btn-alt-info">{{ trans('fields.buttons.restore') }}</x-forms.buttons.submit>

@@ -7,18 +7,18 @@ enum FolderPathEnum : string
     /**
      * Information
      */
-    case LANGUAGE = 'dashboard.information.language.';
+    case LANGUAGE = 'information::language.';
 
     /**
      * Management
      */
-    case USER = 'dashboard.management.user.';
-    case ROLE = 'dashboard.management.role.';
-    case PERMISSION = 'dashboard.management.permission.';
+    case USER = 'management::user.';
+    case ROLE = 'management::role.';
+    case PERMISSION = 'management::permission.';
 
     /**
      * Settings
      */
-    case PROFILE = 'dashboard.settings.profile';
-    case IMPORT = 'dashboard.settings.import';
+    case PROFILE = 'settings::profile';
+    case IMPORT = 'settings::import';
 }

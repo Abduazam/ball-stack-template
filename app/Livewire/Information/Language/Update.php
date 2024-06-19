@@ -3,13 +3,13 @@
 namespace App\Livewire\Information\Language;
 
 use App\Contracts\Traits\Livewire\Dispatches\DispatchingTrait;
-use App\Handlers\Command\CommandHandler;
-use App\Models\Information\Language;
+use App\Handlers\Action\ActionHandler;
 use Illuminate\Contracts\View\View;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
-use Modules\Information\Commands\Language\UpdateLanguageCommand;
-use Modules\Information\Http\Forms\Language\LanguageForm;
+use Modules\Information\App\Actions\Language\UpdateLanguageAction;
+use Modules\Information\App\Http\Forms\Language\LanguageForm;
+use Modules\Information\App\Models\Language\Language;
 
 class Update extends Component
 {
@@ -31,8 +31,8 @@ class Update extends Component
     {
         $validated = $this->form->validate();
 
-        $response = (new CommandHandler)->handle(
-            new UpdateLanguageCommand($this->language, $validated)
+        $response = (new ActionHandler)->handle(
+            new UpdateLanguageAction($this->language, $validated)
         );
 
         $this->handleResponse($response, 'language');

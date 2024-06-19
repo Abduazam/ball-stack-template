@@ -12,7 +12,7 @@ class DeleteImportFiles extends Command
      *
      * @var string
      */
-    protected $signature = 'delete:import-file';
+    protected $signature = 'delete:imports';
 
     /**
      * The console command description.

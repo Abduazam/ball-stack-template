@@ -11,9 +11,7 @@ class ClosureHandler
     public function handle(Closure $service): Throwable|int|bool
     {
         try {
-            return DB::transaction(function () use ($service) {
-                return $service();
-            });
+            return DB::transaction(fn() => $service());
         } catch (Throwable $exception) {
             return $exception;
         }

@@ -3,13 +3,13 @@
 namespace App\Livewire\Management\Permission;
 
 use App\Contracts\Traits\Livewire\Dispatches\DispatchingTrait;
-use App\Handlers\Command\CommandHandler;
-use App\Models\Management\Permission;
+use App\Handlers\Action\ActionHandler;
 use Illuminate\Contracts\View\View;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
-use Modules\Management\Commands\Permission\UpdatePermissionCommand;
-use Modules\Management\Http\Forms\Permission\PermissionForm;
+use Modules\Management\App\Actions\Permission\UpdatePermissionAction;
+use Modules\Management\App\Http\Forms\Permission\PermissionForm;
+use Modules\Management\App\Models\Permission\Permission;
 
 class Update extends Component
 {
@@ -31,8 +31,8 @@ class Update extends Component
     {
         $validated = $this->form->validate();
 
-        $response = (new CommandHandler)->handle(
-            new UpdatePermissionCommand($this->permission, $validated)
+        $response = (new ActionHandler)->handle(
+            new UpdatePermissionAction($this->permission, $validated)
         );
 
         $this->handleResponse($response, 'permission');

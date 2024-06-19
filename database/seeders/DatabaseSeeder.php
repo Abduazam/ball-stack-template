@@ -13,12 +13,12 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             // Auth seeders
-            Management\RoleSeeder::class,
-            Management\PermissionSeeder::class,
-            Management\UserSeeder::class,
+            \Modules\Management\Database\seeders\RoleSeeder::class,
+            \Modules\Management\Database\seeders\PermissionSeeder::class,
+            \Modules\Management\Database\seeders\UserSeeder::class,
 
             // App seeders
-            Information\LanguageSeeder::class,
+            \Modules\Information\Database\seeders\LanguageSeeder::class,
         ]);
     }
 }

@@ -3,11 +3,11 @@
 namespace App\Livewire\Management\Role;
 
 use App\Contracts\Traits\Livewire\Dispatches\DispatchingTrait;
-use App\Handlers\Command\CommandHandler;
-use App\Models\Management\Role;
+use App\Handlers\Action\ActionHandler;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
-use Modules\Management\Commands\Role\DestroyRoleCommand;
+use Modules\Management\App\Actions\Role\DestroyRoleAction;
+use Modules\Management\App\Models\Role\Role;
 
 class Destroy extends Component
 {
@@ -17,8 +17,8 @@ class Destroy extends Component
 
     public function destroy(): void
     {
-        $response = (new CommandHandler)->handle(
-            new DestroyRoleCommand($this->role)
+        $response = (new ActionHandler)->handle(
+            new DestroyRoleAction($this->role)
         );
 
         $this->handleResponse($response, 'role');

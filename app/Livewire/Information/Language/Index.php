@@ -8,7 +8,7 @@ use App\Contracts\Traits\Livewire\Filters\TrashedTrait;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Lazy;
 use Livewire\Component;
-use Modules\Information\Repositories\Language\LanguageRepository;
+use Modules\Information\App\Repositories\Language\LanguageRepository;
 
 #[Lazy]
 class Index extends Component

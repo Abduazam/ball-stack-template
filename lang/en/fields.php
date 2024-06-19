@@ -45,6 +45,7 @@ return [
             'role_information' => 'New role information. Within these info users will assign to the role.',
             'permission_information' => 'New permission information. It defines all information that permission has.',
             'import_information' => "Import your new data into the database. This page provides elegant importing.",
+            'language_information' => "A language information. This page provides information about a language.",
         ],
     ],
 

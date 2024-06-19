@@ -5,15 +5,15 @@ namespace App\Livewire\Management\User;
 use App\Contracts\Traits\Livewire\Actions\RemoveImageTrait;
 use App\Contracts\Traits\Livewire\Actions\ShowPasswordTrait;
 use App\Contracts\Traits\Livewire\Dispatches\DispatchingTrait;
-use App\Handlers\Command\CommandHandler;
+use App\Handlers\Action\ActionHandler;
 use Illuminate\Contracts\View\View;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Lazy;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Modules\Management\Commands\User\CreateUserCommand;
-use Modules\Management\Http\Forms\User\UserForm;
-use Modules\Management\Repositories\Role\RoleRepository;
+use Modules\Management\App\Actions\User\CreateUserAction;
+use Modules\Management\App\Http\Forms\User\UserForm;
+use Modules\Management\App\Repositories\Role\RoleRepository;
 
 #[Lazy]
 class Create extends Component
@@ -29,8 +29,8 @@ class Create extends Component
     {
         $validated = $this->form->validate();
 
-        $response = (new CommandHandler)->handle(
-            new CreateUserCommand($validated)
+        $response = (new ActionHandler)->handle(
+            new CreateUserAction($validated)
         );
 
         $this->handleResponse($response, 'user', 'view');

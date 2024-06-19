@@ -3,12 +3,12 @@
 namespace App\Livewire\Information\Language;
 
 use App\Contracts\Traits\Livewire\Dispatches\DispatchingTrait;
-use App\Handlers\Command\CommandHandler;
+use App\Handlers\Action\ActionHandler;
 use Illuminate\Contracts\View\View;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
-use Modules\Information\Commands\Language\CreateLanguageCommand;
-use Modules\Information\Http\Forms\Language\LanguageForm;
+use Modules\Information\App\Actions\Language\CreateLanguageAction;
+use Modules\Information\App\Http\Forms\Language\LanguageForm;
 
 class Create extends Component
 {
@@ -23,8 +23,8 @@ class Create extends Component
     {
         $validated = $this->form->validate();
 
-        $response = (new CommandHandler)->handle(
-            new CreateLanguageCommand($validated)
+        $response = (new ActionHandler)->handle(
+            new CreateLanguageAction($validated)
         );
 
         $this->handleResponse($response, 'language');

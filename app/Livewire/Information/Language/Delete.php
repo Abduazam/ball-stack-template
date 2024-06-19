@@ -3,12 +3,12 @@
 namespace App\Livewire\Information\Language;
 
 use App\Contracts\Traits\Livewire\Dispatches\DispatchingTrait;
-use App\Handlers\Command\CommandHandler;
-use App\Models\Information\Language;
+use App\Handlers\Action\ActionHandler;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
 use Livewire\Component;
-use Modules\Information\Commands\Language\DeleteLanguageCommand;
+use Modules\Information\App\Actions\Language\DeleteLanguageAction;
+use Modules\Information\App\Models\Language\Language;
 
 class Delete extends Component
 {
@@ -18,8 +18,8 @@ class Delete extends Component
 
     public function delete(): void
     {
-        $response = (new CommandHandler)->handle(
-            new DeleteLanguageCommand($this->language)
+        $response = (new ActionHandler)->handle(
+            new DeleteLanguageAction($this->language)
         );
 
         $this->handleResponse($response, 'language');

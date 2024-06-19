@@ -3,16 +3,16 @@
 namespace App\Livewire\Management\Role;
 
 use App\Contracts\Traits\Livewire\Dispatches\DispatchingTrait;
-use App\Handlers\Command\CommandHandler;
-use App\Models\Management\Role;
+use App\Handlers\Action\ActionHandler;
 use Illuminate\Contracts\View\View;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Lazy;
 use Livewire\Component;
-use Modules\Management\Commands\Role\UpdateRoleCommand;
-use Modules\Management\Http\Forms\Role\RoleForm;
-use Modules\Management\Http\Methods\Role\RoleMethods;
-use Modules\Management\Repositories\Permissions\PermissionRepository;
+use Modules\Management\App\Actions\Role\UpdateRoleAction;
+use Modules\Management\App\Http\Forms\Role\RoleForm;
+use Modules\Management\App\Http\Methods\Role\RoleMethods;
+use Modules\Management\App\Models\Role\Role;
+use Modules\Management\App\Repositories\Permissions\PermissionRepository;
 
 #[Lazy]
 class Update extends Component
@@ -35,8 +35,8 @@ class Update extends Component
     {
         $validated = $this->form->validate();
 
-        $response = (new CommandHandler)->handle(
-            new UpdateRoleCommand($this->role, $validated)
+        $response = (new ActionHandler)->handle(
+            new UpdateRoleAction($this->role, $validated)
         );
 
         $this->handleResponse($response, 'role', 'view');

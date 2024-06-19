@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\Bus;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Modules\Management\Repositories\Permissions\PermissionRepository;
-use Modules\Settings\Http\Forms\Import\ImportForm;
+use Modules\Management\App\Repositories\Permissions\PermissionRepository;
+use Modules\Settings\App\Http\Forms\Import\ImportForm;
 use Throwable;
 
 class Import extends Component

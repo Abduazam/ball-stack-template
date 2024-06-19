@@ -5,14 +5,14 @@ namespace App\Livewire\Settings;
 use App\Contracts\Traits\Livewire\Actions\RemoveImageTrait;
 use App\Contracts\Traits\Livewire\Actions\ShowPasswordTrait;
 use App\Contracts\Traits\Livewire\Dispatches\DispatchingTrait;
-use App\Handlers\Command\CommandHandler;
-use App\Models\Management\User;
+use App\Handlers\Action\ActionHandler;
+use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Modules\Settings\Commands\Profile\UpdateProfileCommand;
-use Modules\Settings\Http\Forms\Profile\ProfileForm;
+use Modules\Settings\App\Actions\Profile\UpdateProfileAction;
+use Modules\Settings\App\Http\Forms\Profile\ProfileForm;
 
 class Profile extends Component
 {
@@ -34,8 +34,8 @@ class Profile extends Component
     {
         $validated = $this->form->validate();
 
-        $response = (new CommandHandler)->handle(
-            new UpdateProfileCommand($this->user, $validated)
+        $response = (new ActionHandler)->handle(
+            new UpdateProfileAction($this->user, $validated)
         );
 
         $this->handleResponse($response, 'profile', 'view');

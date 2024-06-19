@@ -1,13 +1,13 @@
 @php use App\Contracts\Enums\Route\RoutePathEnum; @endphp
 
 <x-sections.block
-        title="{{ trans('fields.blocks.titles.users') }}"
-        export="{{ RoutePathEnum::USER->value . 'export' }}"
+    title="{{ trans('fields.blocks.titles.users') }}"
+    export="{{ RoutePathEnum::USER->value . 'export' }}"
 >
     <div class="filter-table pb-4">
         <div class="row w-100 h-100 m-0 p-0 row-gap-sm-0 row-gap-2">
             <div class="col-md-2 col-12 ps-0 pe-md-2 pe-0">
-                @can('create', \App\Models\Management\User::class)
+                @can('create', \App\Models\User::class)
                     <x-forms.buttons.link route="{{ route('dashboard.management.users.create') }}" class="btn-primary">
                         {{ trans('fields.actions.buttons.create', ['model' => trans('fields.columns.user.user')]) }}
                     </x-forms.buttons.link>

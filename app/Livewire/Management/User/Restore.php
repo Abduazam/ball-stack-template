@@ -3,11 +3,11 @@
 namespace App\Livewire\Management\User;
 
 use App\Contracts\Traits\Livewire\Dispatches\DispatchingTrait;
-use App\Handlers\Command\CommandHandler;
-use App\Models\Management\User;
+use App\Handlers\Action\ActionHandler;
+use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
-use Modules\Management\Commands\User\RestoreUserCommand;
+use Modules\Management\App\Actions\User\RestoreUserAction;
 
 class Restore extends Component
 {
@@ -17,8 +17,8 @@ class Restore extends Component
 
     public function restore(): void
     {
-        $response = (new CommandHandler)->handle(
-            new RestoreUserCommand($this->user)
+        $response = (new ActionHandler)->handle(
+            new RestoreUserAction($this->user)
         );
 
         $this->handleResponse($response, 'user');

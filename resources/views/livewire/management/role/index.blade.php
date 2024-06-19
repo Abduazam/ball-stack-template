@@ -7,7 +7,7 @@
     <div class="filter-table pb-4">
         <div class="row w-100 h-100 m-0 p-0 row-gap-sm-0 row-gap-2">
             <div class="col-md-2 col-12 ps-0 pe-md-2 pe-0">
-                @can('create', \App\Models\Management\Role::class)
+                @can('create', \Modules\Management\App\Models\Role\Role::class)
                     <x-forms.buttons.link route="{{ route('dashboard.management.roles.create') }}" class="btn-primary">
                         {{ trans('fields.actions.buttons.create', ['model' => trans('fields.columns.role.role')]) }}
                     </x-forms.buttons.link>

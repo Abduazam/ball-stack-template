@@ -3,9 +3,9 @@
 namespace App\Livewire\Management\Role\List;
 
 use App\Contracts\Traits\Livewire\Filters\PaginationTrait;
-use App\Models\Management\Role;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
+use Modules\Management\App\Models\Role\Role;
 
 class Permission extends Component
 {

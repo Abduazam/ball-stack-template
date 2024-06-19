@@ -3,12 +3,12 @@
 namespace App\Livewire\Management\User;
 
 use App\Contracts\Traits\Livewire\Dispatches\DispatchingTrait;
-use App\Handlers\Command\CommandHandler;
-use App\Models\Management\User;
+use App\Handlers\Action\ActionHandler;
+use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
 use Livewire\Component;
-use Modules\Management\Commands\User\DeleteUserCommand;
+use Modules\Management\App\Actions\User\DeleteUserAction;
 
 class Delete extends Component
 {
@@ -18,8 +18,8 @@ class Delete extends Component
 
     public function delete(): void
     {
-        $response = (new CommandHandler)->handle(
-            new DeleteUserCommand($this->user)
+        $response = (new ActionHandler)->handle(
+            new DeleteUserAction($this->user)
         );
 
         $this->handleResponse($response, 'user');

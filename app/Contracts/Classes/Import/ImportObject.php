@@ -4,10 +4,10 @@ namespace App\Contracts\Classes\Import;
 
 use App\Contracts\Enums\Route\RoutePathEnum;
 use InvalidArgumentException;
-use Modules\Information\Imports\Language\LanguageImport;
-use Modules\Management\Imports\Permission\PermissionImport;
-use Modules\Management\Imports\Role\RoleImport;
-use Modules\Management\Imports\User\UserImport;
+use Modules\Information\App\DataTransfer\Imports\Language\LanguageImport;
+use Modules\Management\App\DataTransfer\Imports\Permission\PermissionImport;
+use Modules\Management\App\DataTransfer\Imports\Role\RoleImport;
+use Modules\Management\App\DataTransfer\Imports\User\UserImport;
 
 class ImportObject
 {

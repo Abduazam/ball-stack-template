@@ -7,7 +7,7 @@ use App\Contracts\Interfaces\Import\Importable;
 use App\Jobs\Import\ImportExcelJob;
 use Illuminate\Bus\Batch;
 use Illuminate\Support\Facades\Bus;
-use Modules\Settings\DTO\Import\ImportDTO;
+use Modules\Settings\App\DTOs\Import\ImportDTO;
 use Throwable;
 
 class ImportHandler

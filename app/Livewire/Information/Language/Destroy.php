@@ -3,11 +3,11 @@
 namespace App\Livewire\Information\Language;
 
 use App\Contracts\Traits\Livewire\Dispatches\DispatchingTrait;
-use App\Handlers\Command\CommandHandler;
-use App\Models\Information\Language;
+use App\Handlers\Action\ActionHandler;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
-use Modules\Information\Commands\Language\DestroyLanguageCommand;
+use Modules\Information\App\Actions\Language\DestroyLanguageAction;
+use Modules\Information\App\Models\Language\Language;
 
 class Destroy extends Component
 {
@@ -17,8 +17,8 @@ class Destroy extends Component
 
     public function destroy(): void
     {
-        $response = (new CommandHandler)->handle(
-            new DestroyLanguageCommand($this->language)
+        $response = (new ActionHandler)->handle(
+            new DestroyLanguageAction($this->language)
         );
 
         $this->handleResponse($response, 'language');
