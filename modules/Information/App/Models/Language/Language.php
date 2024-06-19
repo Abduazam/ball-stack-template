@@ -7,9 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * Columns
  * @property $id
  * @property $slug
  * @property $title
+ * @property $created_at
+ * @property $updated_at
+ * @property $deleted_at
  */
 class Language extends Model
 {

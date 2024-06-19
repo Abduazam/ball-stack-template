@@ -4,10 +4,10 @@ namespace App\Handlers\Import;
 
 use App\Contracts\Classes\Import\ImportObject;
 use App\Contracts\Interfaces\Import\Importable;
-use App\Jobs\Import\ImportExcelJob;
 use Illuminate\Bus\Batch;
 use Illuminate\Support\Facades\Bus;
 use Modules\Settings\App\DTOs\Import\ImportDTO;
+use Modules\Settings\App\Jobs\Import\ImportExcelJob;
 use Throwable;
 
 class ImportHandler

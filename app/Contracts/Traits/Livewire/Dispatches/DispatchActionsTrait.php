@@ -55,7 +55,11 @@ trait DispatchActionsTrait
     private function actAsImport(string $action): void
     {
         if ($action === 'import') {
+            $this->dispatch('refresh');
+
             $this->form->reset();
+
+            $this->reset('batchId', 'importing', 'importFinished');
 
             $this->mounting();
         }

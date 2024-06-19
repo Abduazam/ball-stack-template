@@ -5,6 +5,7 @@ namespace Modules\Settings\App\Http\Controllers\Locale;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\App;
+use Modules\Information\App\Models\Language\Language;
 use Modules\Information\App\Repositories\Language\LanguageRepository;
 
 class ChangeLanguageController extends Controller
@@ -14,6 +15,9 @@ class ChangeLanguageController extends Controller
      */
     public function __invoke(string $slug, LanguageRepository $repository): RedirectResponse
     {
+        /**
+         * @var Language $language
+         */
         $language = $repository->findBySlug($slug);
 
         if ($language && $language->slug != app()->getLocale()) {

@@ -12,10 +12,15 @@ use Modules\Information\App\Models\Image\Image;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
+ * Columns
  * @property $id
  * @property $name
  * @property $email
+ * @property $email_verified_at
  * @property $password
+ * @property $created_at
+ * @property $updated_at
+ * @property $deleted_at
  *
  * Relations
  * @property $image
@@ -23,7 +28,7 @@ use Spatie\Permission\Traits\HasRoles;
  */
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasRoles, SoftDeleting;
+    use HasFactory, Notifiable, HasRoles, Methods, Relations, SoftDeleting;
 
     /**
      * The attributes that are mass assignable.
@@ -64,15 +69,5 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-
-    public function image(): MorphOne
-    {
-        return $this->morphOne(Image::class, 'imageable');
-    }
-
-    public function self(): bool
-    {
-        return $this->id === auth()->user()->id;
     }
 }

@@ -24,7 +24,7 @@ final class LanguagePolicy
     public function show(User $user, Language $language): bool
     {
         return $user->hasPermissionTo($this->route . 'show')
-                && ! $language->trashed();
+                && !$language->trashed();
     }
 
     /**
@@ -41,7 +41,7 @@ final class LanguagePolicy
     public function update(User $user, Language $language): bool
     {
         return $user->hasPermissionTo($this->route . 'edit')
-                && ! $language->trashed();
+                && !$language->trashed();
     }
 
     /**
@@ -50,7 +50,7 @@ final class LanguagePolicy
     public function delete(User $user, Language $language): bool
     {
         return $user->hasPermissionTo($this->route . 'delete')
-                && ! $language->trashed()
+                && !$language->trashed()
                 && $language->slug !== app()->getLocale();
     }
 
