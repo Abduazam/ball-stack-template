@@ -12,7 +12,6 @@ use Modules\Information\Repositories\Language\LanguageRepository;
 use OpenSpout\Common\Exception\IOException;
 use OpenSpout\Common\Exception\UnsupportedTypeException;
 use OpenSpout\Reader\Exception\ReaderNotOpenedException;
-use Rap2hpoutre\FastExcel\FastExcel;
 use Throwable;
 
 final class LanguageImport extends AbstractImport implements Importable
@@ -34,9 +33,7 @@ final class LanguageImport extends AbstractImport implements Importable
     public function import(string $path): bool
     {
         try {
-            $collection = (new FastExcel)->withoutHeaders()->import($path);
-
-            $languageData = $this->generators($collection, LanguageImportDTO::class);
+            $languageData = $this->generatorData($path, LanguageImportDTO::class);
 
             $this->insert($languageData);
 
@@ -50,6 +47,9 @@ final class LanguageImport extends AbstractImport implements Importable
     {
         $languages = [];
 
+        /**
+         * @var LanguageImportDTO $language
+         */
         foreach ($collection as $language) {
             $languages[] = $language->toArray();
         }

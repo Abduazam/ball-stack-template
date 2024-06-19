@@ -13,7 +13,6 @@ use Modules\Management\Repositories\User\UserRepository;
 use OpenSpout\Common\Exception\IOException;
 use OpenSpout\Common\Exception\UnsupportedTypeException;
 use OpenSpout\Reader\Exception\ReaderNotOpenedException;
-use Rap2hpoutre\FastExcel\FastExcel;
 use Throwable;
 
 final class UserImport extends AbstractImport implements Importable
@@ -36,9 +35,7 @@ final class UserImport extends AbstractImport implements Importable
     public function import(string $path): bool
     {
         try {
-            $collection = (new FastExcel)->withoutHeaders()->import($path);
-
-            $userData = $this->generators($collection, UserImportDTO::class);
+            $userData = $this->generatorData($path, UserImportDTO::class);
 
             $this->insert($userData);
 
@@ -48,6 +45,9 @@ final class UserImport extends AbstractImport implements Importable
         }
     }
 
+    /**
+     * @param Generator $collection
+     */
     protected function insert(Generator $collection): void
     {
         $existingRoles = $this->roleRepository->all()->pluck('name')->toArray();
@@ -55,8 +55,9 @@ final class UserImport extends AbstractImport implements Importable
         $users = [];
         $roles = [];
 
-
-        /** @var UserImportDTO $user */
+        /**
+         * @var UserImportDTO $user
+         */
         foreach ($collection as $user) {
             $users[] = $user->toArray();
 

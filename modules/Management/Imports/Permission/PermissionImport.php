@@ -12,7 +12,6 @@ use Modules\Management\Repositories\Permissions\PermissionRepository;
 use OpenSpout\Common\Exception\IOException;
 use OpenSpout\Common\Exception\UnsupportedTypeException;
 use OpenSpout\Reader\Exception\ReaderNotOpenedException;
-use Rap2hpoutre\FastExcel\FastExcel;
 use Throwable;
 
 final class PermissionImport extends AbstractImport implements Importable
@@ -34,11 +33,9 @@ final class PermissionImport extends AbstractImport implements Importable
     public function import(string $path): bool
     {
         try {
-            $collection = (new FastExcel)->withoutHeaders()->import($path);
-
             $existingPermissions = $this->permissionRepository->all()->pluck('name')->toArray();
 
-            $permissionData = $this->generators($collection, PermissionImportDTO::class, function ($item) use ($existingPermissions) {
+            $permissionData = $this->generatorData($path, PermissionImportDTO::class, function ($item) use ($existingPermissions) {
                 return in_array($item[1], $existingPermissions);
             });
 
@@ -54,6 +51,9 @@ final class PermissionImport extends AbstractImport implements Importable
     {
         $permissions = [];
 
+        /**
+         * @var PermissionImportDTO $permission
+         */
         foreach ($collection as $permission) {
             $permissions[] = $permission->toArray();
         }

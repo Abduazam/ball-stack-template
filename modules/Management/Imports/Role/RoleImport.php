@@ -14,7 +14,6 @@ use Modules\Management\Repositories\Role\RoleRepository;
 use OpenSpout\Common\Exception\IOException;
 use OpenSpout\Common\Exception\UnsupportedTypeException;
 use OpenSpout\Reader\Exception\ReaderNotOpenedException;
-use Rap2hpoutre\FastExcel\FastExcel;
 use Throwable;
 
 final class RoleImport extends AbstractImport implements Importable
@@ -38,9 +37,7 @@ final class RoleImport extends AbstractImport implements Importable
     public function import(string $path): bool
     {
         try {
-            $collection = (new FastExcel)->withoutHeaders()->import($path);
-
-            $roleData = $this->generators($collection, RoleImportDTO::class);
+            $roleData = $this->generatorData($path, RoleImportDTO::class);
 
             $this->insert($roleData);
 
@@ -50,6 +47,9 @@ final class RoleImport extends AbstractImport implements Importable
         }
     }
 
+    /**
+     * @param Generator $collection
+     */
     protected function insert(Generator $collection): void
     {
         $existingPermissions = $this->permissionRepository->all()->pluck('name')->toArray();
@@ -57,6 +57,9 @@ final class RoleImport extends AbstractImport implements Importable
         $roles = [];
         $permissions = [];
 
+        /**
+         * @var RoleImportDTO $role
+         */
         foreach ($collection as $role) {
             $roles[] = $role->toArray();
 
@@ -82,6 +85,9 @@ final class RoleImport extends AbstractImport implements Importable
                 return $query->with('permissions')->whereIn('name', array_keys($permissions));
             });
 
+            /**
+             * @var Role $role
+             */
             foreach ($insertedRoles as $role) {
                 $newPermissions = $permissions[$role->name];
 
