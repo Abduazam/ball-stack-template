@@ -16,21 +16,6 @@ trait RoleMethods
         }
     }
 
-    public function setPermission(int $permissionId): void
-    {
-        $index = array_search($permissionId, $this->form->permissions);
-
-        if ($index === false) {
-            $this->form->permissions[] = $permissionId;
-        } else {
-            unset($this->form->permissions[$index]);
-
-            $this->form->all = false;
-        }
-
-        $this->form->permissions = array_values($this->form->permissions);
-    }
-
     public function setGroupPermission(string $permissionIds): void
     {
         $ids = explode(',', $permissionIds);
@@ -57,5 +42,24 @@ trait RoleMethods
         if (empty($this->form->permissions)) {
             $this->form->permissions = $defaults->pluck('id')->toArray();
         }
+    }
+
+    public function areAllPermissionsSelected($group, $permissionIds): bool
+    {
+        foreach ($permissionIds as $id) {
+            if (!in_array($id, $this->form->permissions)) {
+                $this->dispatch('unchecked', [
+                    'id' => $group
+                ]);
+
+                return false;
+            }
+        }
+
+        $this->dispatch('checked', [
+            'id' => $group
+        ]);
+
+        return true;
     }
 }

@@ -4,6 +4,7 @@ namespace App\Contracts\Abstracts\Filter;
 
 use App\Contracts\Enums\Immutables\CacheTimeEnum;
 use App\Contracts\Traits\Filter\FilterQueryCachable;
+use App\Contracts\Traits\Filter\FilterQueryLimitable;
 use App\Contracts\ValueObjects\CacheTime;
 use Closure;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class FilterQuery
 {
-    use FilterQueryCachable;
+    use FilterQueryCachable, FilterQueryLimitable;
 
     const LIMIT = 50;
     const ORDER_BY = 'id';
@@ -71,6 +72,8 @@ abstract class FilterQuery
     {
         $this->builder->limit($limit);
 
+        $this->limit = $limit;
+
         return $this;
     }
 
@@ -89,6 +92,19 @@ abstract class FilterQuery
             return $this->getCache();
         }
 
-        return $perPage === 0 ? $this->builder->get() : $this->builder->paginate($perPage);
+        if ($perPage === 0) {
+            return $this->builder->get();
+        }
+
+        if ($this->limit) {
+            return $this->customPaginate($perPage);
+        }
+
+        return $this->builder->paginate($perPage);
+    }
+
+    public function toSql(): string
+    {
+        return $this->builder->toSql();
     }
 }

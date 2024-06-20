@@ -15446,49 +15446,49 @@ textarea.form-control-lg {
   font-style: normal;
   font-weight: 300;
   font-display: swap;
-  src: local(""), url("../fonts/inter/inter-v13-latin-300.woff2") format("woff2");
+  src: local(""), url("/resources/fonts/inter/inter-v13-latin-300.woff2") format("woff2");
 }
 @font-face {
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: local(""), url("../fonts/inter/inter-v13-latin-regular.woff2") format("woff2");
+  src: local(""), url("/resources/fonts/inter/inter-v13-latin-regular.woff2") format("woff2");
 }
 @font-face {
   font-family: "Inter";
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: local(""), url("../fonts/inter/inter-v13-latin-500.woff2") format("woff2");
+  src: local(""), url("/resources/fonts/inter/inter-v13-latin-500.woff2") format("woff2");
 }
 @font-face {
   font-family: "Inter";
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: local(""), url("../fonts/inter/inter-v13-latin-600.woff2") format("woff2");
+  src: local(""), url("/resources/fonts/inter/inter-v13-latin-600.woff2") format("woff2");
 }
 @font-face {
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: local(""), url("../fonts/inter/inter-v13-latin-700.woff2") format("woff2");
+  src: local(""), url("/resources/fonts/inter/inter-v13-latin-700.woff2") format("woff2");
 }
 @font-face {
   font-family: "Inter";
   font-style: normal;
   font-weight: 800;
   font-display: swap;
-  src: local(""), url("../fonts/inter/inter-v13-latin-800.woff2") format("woff2");
+  src: local(""), url("/resources/fonts/inter/inter-v13-latin-800.woff2") format("woff2");
 }
 @font-face {
   font-family: "Inter";
   font-style: normal;
   font-weight: 900;
   font-display: swap;
-  src: local(""), url("../fonts/inter/inter-v13-latin-900.woff2") format("woff2");
+  src: local(""), url("/resources/fonts/inter/inter-v13-latin-900.woff2") format("woff2");
 }
 b,
 strong {
@@ -29649,7 +29649,7 @@ readers do not read off random characters that represent icons */
   font-style: normal;
   font-weight: 400;
   font-display: block;
-  src: url("../fonts/fontawesome/fa-regular-400.woff2") format("woff2"), url("../fonts/fontawesome/fa-regular-400.ttf") format("truetype");
+  src: url("/resources/fonts/fontawesome/fa-regular-400.woff2") format("woff2"), url("/resources/fonts/fontawesome/fa-regular-400.ttf") format("truetype");
 }
 .far,
 .fa-regular {
@@ -29671,7 +29671,7 @@ readers do not read off random characters that represent icons */
   font-style: normal;
   font-weight: 900;
   font-display: block;
-  src: url("../fonts/fontawesome/fa-solid-900.woff2") format("woff2"), url("../fonts/fontawesome/fa-solid-900.ttf") format("truetype");
+  src: url("/resources/fonts/fontawesome/fa-solid-900.woff2") format("woff2"), url("/resources/fonts/fontawesome/fa-solid-900.ttf") format("truetype");
 }
 .fas,
 .fa-solid {
@@ -29693,7 +29693,7 @@ readers do not read off random characters that represent icons */
   font-style: normal;
   font-weight: 400;
   font-display: block;
-  src: url("../fonts/fontawesome/fa-brands-400.woff2") format("woff2"), url("../fonts/fontawesome/fa-brands-400.ttf") format("truetype");
+  src: url("/resources/fonts/fontawesome/fa-brands-400.woff2") format("woff2"), url("/resources/fonts/fontawesome/fa-brands-400.ttf") format("truetype");
 }
 .fab,
 .fa-brands {
@@ -31726,8 +31726,8 @@ readers do not read off random characters that represent icons */
 
 @font-face {
   font-family: "simple-line-icons";
-  src: url("../fonts/simple-line-icons/Simple-Line-Icons.eot?v=2.4.0");
-  src: url("../fonts/simple-line-icons/Simple-Line-Icons.eot?v=2.4.0#iefix") format("embedded-opentype"), url("../fonts/simple-line-icons/Simple-Line-Icons.woff2?v=2.4.0") format("woff2"), url("../fonts/simple-line-icons/Simple-Line-Icons.ttf?v=2.4.0") format("truetype"), url("../fonts/simple-line-icons/Simple-Line-Icons.woff?v=2.4.0") format("woff"), url("../fonts/simple-line-icons/Simple-Line-Icons.svg?v=2.4.0#simple-line-icons") format("svg");
+  src: url("/resources/fonts/simple-line-icons/Simple-Line-Icons.eot?v=2.4.0");
+  src: url("/resources/fonts/simple-line-icons/Simple-Line-Icons.eot?v=2.4.0#iefix") format("embedded-opentype"), url("/resources/fonts/simple-line-icons/Simple-Line-Icons.woff2?v=2.4.0") format("woff2"), url("/resources/fonts/simple-line-icons/Simple-Line-Icons.ttf?v=2.4.0") format("truetype"), url("/resources/fonts/simple-line-icons/Simple-Line-Icons.woff?v=2.4.0") format("woff"), url("/resources/fonts/simple-line-icons/Simple-Line-Icons.svg?v=2.4.0#simple-line-icons") format("svg");
   font-weight: normal;
   font-style: normal;
 }

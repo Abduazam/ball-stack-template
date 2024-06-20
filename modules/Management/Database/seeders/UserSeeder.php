@@ -22,14 +22,7 @@ class UserSeeder extends Seeder
         ]);
         $admin->assignRole($adminRole);
 
-        $azam = User::factory()->create([
-            'name' => 'Azam',
-            'email' => 'azam@example.com',
-            'password' => 1234,
-        ]);
-        $azam->assignRole($adminRole);
-
-        //$this->managers();
+        // $this->managers();
     }
 
     private function managers(): void
@@ -37,7 +30,7 @@ class UserSeeder extends Seeder
         $managerRole = Role::findByName('manager');
         $doctorRole = Role::findByName('doctor');
 
-        $managers = User::factory(100)->create();
+        $managers = User::factory(10000)->create();
         $roleUserData = $managers->map(function ($manager) use ($managerRole, $doctorRole) {
             $role = rand(0, 1) ? $managerRole : $doctorRole;
 

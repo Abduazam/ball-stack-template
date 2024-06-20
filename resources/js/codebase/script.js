@@ -50,4 +50,22 @@ $(document).ready(function() {
     window.addEventListener('refresh-page', function () {
         location.reload();
     });
+
+    window.addEventListener('unchecked', function (event) {
+        const checkbox = document.getElementById(event.detail[0].id);
+
+        if (checkbox) {
+            checkbox.checked = false;
+        }
+    });
+
+    window.addEventListener('checked', function (event) {
+        const checkbox = document.getElementById(event.detail[0].id);
+
+        if (checkbox) {
+            checkbox.checked = true;
+        }
+    });
 });
+
+
