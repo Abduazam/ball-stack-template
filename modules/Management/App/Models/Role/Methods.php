@@ -2,7 +2,7 @@
 
 namespace Modules\Management\App\Models\Role;
 
-use App\Contracts\Enums\Role\AdminEnum;
+use App\Contracts\Enums\Immutables\AdminEnum;
 
 trait Methods
 {

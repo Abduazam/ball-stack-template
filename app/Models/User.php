@@ -4,11 +4,11 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Contracts\Traits\Models\SoftDeleting;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Modules\Information\App\Models\Image\Image;
+use Modules\Management\App\Observers\User\UserObserver;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
@@ -26,6 +26,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @property $image
  * @property $roles
  */
+#[ObservedBy(UserObserver::class)]
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles, Methods, Relations, SoftDeleting;
@@ -50,13 +51,6 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-
-    /**
-     * The relations to eager load on every query.
-     *
-     * @var array
-     */
-    protected $with = ['image'];
 
     /**
      * Get the attributes that should be cast.

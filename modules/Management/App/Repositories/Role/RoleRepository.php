@@ -6,26 +6,40 @@ use App\Contracts\Interfaces\Repository\Repositorable;
 use Closure;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Modules\Management\App\Filters\Role\RoleFilterQuery;
-use Modules\Management\App\Models\Role\Role;
 
 class RoleRepository implements Repositorable
 {
     public function all(): Collection
     {
-        return Role::with('users', 'permissions')
-            ->where('name', '!=', 'super-admin')
+        return (new RoleFilterQuery)
+            ->cachable('roles')
+            ->relations('users', 'permissions')
+            ->closure(function ($query) {
+                return $query->where('name', '!=', 'super-admin');
+            })
             ->get();
     }
 
-    public function findById(int $id): ?Role
+    public function findById(int $id): ?Model
     {
-        return Role::where('id', $id)->first();
+        return (new RoleFilterQuery)
+            ->cachable("role.{$id}")
+            ->closure(function ($query) use ($id) {
+                return $query->where('id', $id);
+            })
+            ->first();
     }
 
-    public function findByName(string $role): ?Role
+    public function findByName(string $name): ?Model
     {
-        return Role::where('name', $role)->first();
+        return (new RoleFilterQuery)
+            ->cachable("role.{$name}")
+            ->closure(function ($query) use ($name) {
+                return $query->where('name', $name);
+            })
+            ->first();
     }
 
     public function findByClosure(Closure $function): Collection

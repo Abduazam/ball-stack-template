@@ -2,7 +2,9 @@
 
 namespace Modules\Management\App\Models\Permission;
 
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Management\App\Observers\Permission\PermissionObserver;
 use Spatie\Permission\Models\Permission as SpatiePermission;
 
 /**
@@ -17,6 +19,7 @@ use Spatie\Permission\Models\Permission as SpatiePermission;
  * Relations
  * @property $roles
  */
+#[ObservedBy(PermissionObserver::class)]
 class Permission extends SpatiePermission
 {
     use HasFactory, Methods;

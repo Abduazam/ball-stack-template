@@ -3,176 +3,175 @@
 return [
 
     'nav' => [
-        'dashboard' => 'Панель управления',
-        'overview' => 'Обзор',
+        'dashboard' => 'Dashboard',
+        'overview' => 'Overview',
 
-        'languages' => 'Языки',
+        'languages' => 'Languages',
 
-        'users' => 'Пользователи',
-        'roles' => 'Роли',
-        'permissions' => 'Разрешения',
+        'users' => "Users",
+        'roles' => "Roles",
+        'permissions' => "Permissions",
 
-        'profile' => 'Профиль',
-        'settings' => 'Настройки',
-        'import' => 'Импорт',
+        'profile' => 'Profile',
+        'settings' => 'Settings',
+        'import' => 'Import',
 
         'headings' => [
-            'information' => 'Информация',
-            'management' => 'Управление',
-            'settings' => 'Настройки',
+            'information' => 'Information',
+            'management' => 'Management',
+            'settings' => 'Settings',
         ],
     ],
 
     'blocks' => [
         'titles' => [
-            'user_profile' => 'Профиль пользователя',
-            'user_password' => 'Пароль пользователя',
-            'users' => 'Список пользователей',
-            'user_information' => 'Информация о пользователе',
-            'roles' => 'Список ролей',
-            'role_information' => 'Информация о роли',
-            'permissions' => 'Список разрешений',
-            'permission_information' => 'Информация о разрешении',
-            'import' => 'Импорт файлов',
-            'languages' => "Список языков",
-            'language_information' => "Информация о языке",
+            'user_profile' => 'User Profile',
+            'user_password' => 'User Password',
+            'users' => "Users List",
+            'user_information' => 'User Info',
+            'roles' => "Roles List",
+            'role_information' => 'Role Info',
+            'permissions' => "Permissions List",
+            'permission_information' => 'Permission Info',
+            'import' => 'Import Files',
+            'languages' => "Languages List",
+            'language_information' => 'Language Info',
         ],
 
         'descriptions' => [
-            'user_profile' => 'Основная информация вашего аккаунта. Ваше имя пользователя будет видно всем.',
-            'user_password' => 'Смена пароля для входа - простой способ защитить ваш аккаунт.',
-            'user_information' => 'Информация о новом пользователе. В рамках этой информации пользователь получит доступ как администратор.',
-            'role_information' => 'Информация о новой роли. В рамках этой информации пользователи будут назначены на роль.',
-            'permission_information' => 'Информация о новом разрешении. Определяет всю информацию, которая имеется у разрешения.',
-            'import_information' => 'Импортируйте новые данные в базу данных. Эта страница обеспечивает удобный импорт.',
-            'language_information' => "Информация о языке. Эта страница предоставляет информацию о языке.",
+            'user_profile' => 'Your account’s vital info. Your username will be publicly visible.',
+            'user_password' => 'Changing your sign in password is an easy way to keep your account secure.',
+            'user_information' => 'New user information. Within these info user will access as administrator.',
+            'role_information' => 'New role information. Within these info users will assign to the role.',
+            'permission_information' => 'New permission information. It defines all information that permission has.',
+            'import_information' => "Import your new data into the database. This page provides elegant importing.",
+            'language_information' => "A language information. This page provides information about a language.",
         ],
     ],
 
     'columns' => [
         'general' => [
-            'id' => 'ID',
-            'action' => 'Действие',
-            'status' => 'Статус',
-            'created_at' => 'Создано',
-            'updated_at' => 'Обновлено',
+            'id' => "ID",
+            'action' => "Action",
+            'status' => "Status",
+            'created_at' => "Created at",
+            'updated_at' => "Updated at",
         ],
 
         'language' => [
-            'language' => "Язык",
-            'slug' => "Слаг",
-            'title' => "Название",
+            'language' => "Language",
+            'slug' => "Slug",
+            'title' => "Title",
         ],
 
         'user' => [
-            'user' => 'Пользователь',
-            'name' => 'Имя',
-            'email' => 'Email',
-            'password' => 'Пароль',
-            'email_verified_at' => 'Email подтвержден',
-            'image' => 'Аватар пользователя',
-            'role' => 'Роль',
+            'user' => "User",
+            'name' => "Name",
+            'email' => "Email",
+            'password' => 'Password',
+            'email_verified_at' => 'Email verified at',
+            'image' => "User Avatar",
+            'role' => "Role",
         ],
 
         'role' => [
-            'role' => 'Роль',
-            'name' => 'Название',
-            'users' => 'Пользователи',
-            'user_count' => 'Количество пользователей',
-            'permissions' => 'Разрешения',
-            'permission_count' => 'Количество разрешений',
+            'role' => "Role",
+            'name' => "Name",
+            'users' => "Users",
+            'user_count' => "Users Count",
+            'permissions' => "Permissions",
+            'permission_count' => "Permissions Count",
         ],
 
         'permission' => [
-            'permission' => 'Разрешения',
-            'name' => 'Название',
-            'guard_name' => 'Имя охранника',
-            'description' => 'Описание',
-            'is_default' => 'По умолчанию',
-            'roles' => 'Роли',
-            'role_count' => 'Количество ролей',
+            'permission' => "Permissions",
+            'name' => "Name",
+            'description' => "Description",
+            'is_default' => "Default",
+            'roles' => "Roles",
+            'role_count' => "Roles Count",
         ],
 
         'import' => [
-            'section' => 'Раздел',
-            'file' => 'Файл',
+            'section' => "Section",
+            'file' => "File",
         ],
     ],
 
     'placeholders' => [
         'profile' => [
-            'name' => 'Введите ваше новое имя',
-            'email' => 'Введите ваш новый email',
-            'password' => 'Введите ваш новый пароль',
+            'name' => 'Enter your new name',
+            'email' => 'Enter your new email',
+            'password' => 'Enter your new password',
         ],
 
         'user' => [
-            'name' => 'Введите имя пользователя',
-            'email' => 'Введите email пользователя',
-            'password' => 'Введите пароль пользователя',
-            'role' => 'Выберите роль пользователя',
+            'name' => 'Enter user name',
+            'email' => 'Enter user email',
+            'password' => 'Enter user password',
+            'role' => 'Select user role',
         ],
 
         'role' => [
-            'name' => 'Введите название роли',
-            'permissions' => 'Выберите разрешения',
+            'name' => 'Enter role name',
+            'permissions' => 'Select permissions',
         ]
     ],
 
     'buttons' => [
-        'index' => 'Индекс',
-        'show' => 'Просмотр',
-        'edit' => 'Редактировать',
-        'create' => 'Создать',
-        'update' => 'Обновить',
-        'delete' => 'Удалить',
-        'restore' => 'Восстановить',
-        'destroy' => 'Уничтожить',
-        'back' => 'Назад',
-        'close' => 'Закрыть',
-        'export' => 'Экспортировать',
-        'import' => 'Импортировать',
+        'index' => "Index",
+        'show' => "Show",
+        'edit' => "Edit",
+        'create' => 'Create',
+        'update' => 'Update',
+        'delete' => 'Delete',
+        'restore' => 'Restore',
+        'destroy' => 'Destroy',
+        'back' => 'Back',
+        'close' => 'Close',
+        'export' => 'Export',
+        'import' => 'Import',
 
         // FOR TRANSLATION
-        'welcome' => 'Главная страница',
-        'profile' => 'Профиль',
-        'locale' => 'Изменить язык'
+        'welcome' => "Main page",
+        'profile' => "Profile",
+        'locale' => "Change language",
     ],
 
     'filters' => [
         // WITH TRASHED
-        'active' => 'Активный',
-        'inactive' => 'Неактивный',
+        'active' => 'Active',
+        'inactive' => 'Inactive',
 
         // SELECT
-        'all' => 'Все',
-        'choose' => 'Выбрать',
+        'all' => 'All',
+        'choose' => "Choose",
 
         // PAGINATION
-        'showing' => 'Показано',
-        'from' => 'из',
-        'data' => 'данных',
+        'showing' => 'Showing',
+        'from' => 'from',
+        'data' => "data",
 
         // INPUTS
-        'search' => 'Поиск',
+        'search' => "Search",
 
         // DEFAULTS
-        'default' => 'По умолчанию',
-        'not_default' => 'Не по умолчанию',
+        'default' => "Default",
+        'not_default' => "Not Default",
     ],
 
     'actions' => [
         'buttons' => [
-            'create' => 'Создать новый :model',
+            'create' => 'Create new :model',
         ],
 
         'imports' => [
             # Information
-            'languages' => 'Импорт языков',
+            'languages' => "Importing languages",
             # Management
-            'users' => 'Импорт пользователей',
-            'roles' => 'Импорт ролей',
-            'permissions' => 'Импорт разрешений',
+            'users' => "Importing users",
+            'roles' => "Importing roles",
+            'permissions' => "Importing permissions",
         ]
-    ],
+    ]
 ];

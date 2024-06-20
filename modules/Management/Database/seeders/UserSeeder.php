@@ -22,6 +22,13 @@ class UserSeeder extends Seeder
         ]);
         $admin->assignRole($adminRole);
 
+        $azam = User::factory()->create([
+            'name' => 'Azam',
+            'email' => 'azam@example.com',
+            'password' => 1234,
+        ]);
+        $azam->assignRole($adminRole);
+
         //$this->managers();
     }
 

@@ -3,21 +3,21 @@
 return [
 
     'dashboard' => [
-        'serviced' => "Обслуживается :company",
+        'serviced' => "Served by :company",
     ],
 
     'actions' => [
         'successes' => [
-            'create' => ":model успешно создан",
-            'update' => ":model успешно обновлен",
-            'delete' => ":model успешно удален",
-            'restore' => ":model успешно восстановлен",
-            'destroy' => ":model успешно уничтожен",
-            'import' => ":model успешно импортирован",
+            'create' => ":model successfully created",
+            'update' => ":model successfully updated",
+            'delete' => ":model successfully deleted",
+            'restore' => ":model successfully restored",
+            'destroy' => ":model successfully destroyed",
+            'import' => ":model successfully imported",
         ],
     ],
 
     'import' => [
-        'wait' => "Пожалуйста, подождите... Идет импорт файла!",
+        'wait' => "Please wait... The file is importing!",
     ]
 ];

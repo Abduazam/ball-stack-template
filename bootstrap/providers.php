@@ -1,16 +1,11 @@
 <?php
 
-use Modules\Information\App\Providers\InformationServiceProvider;
-use Modules\Management\App\Providers\ManagementServiceProvider;
-use Modules\Settings\App\Providers\SettingsServiceProvider;
-
 return [
     App\Providers\AppServiceProvider::class,
     App\Providers\FortifyServiceProvider::class,
+    App\Providers\HorizonServiceProvider::class,
     Barryvdh\Debugbar\ServiceProvider::class,
-
-    // MODULE PROVIDERS
-    ManagementServiceProvider::class,
-    InformationServiceProvider::class,
-    SettingsServiceProvider::class,
+    Modules\Information\App\Providers\InformationServiceProvider::class,
+    Modules\Management\App\Providers\ManagementServiceProvider::class,
+    Modules\Settings\App\Providers\SettingsServiceProvider::class,
 ];

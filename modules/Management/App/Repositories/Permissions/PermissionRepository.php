@@ -6,19 +6,27 @@ use App\Contracts\Interfaces\Repository\Repositorable;
 use Closure;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Modules\Management\App\Filters\Permission\PermissionFilterQuery;
-use Spatie\Permission\Models\Permission;
 
 class PermissionRepository implements Repositorable
 {
     public function all(): Collection
     {
-        return Permission::with('roles')->get();
+        return (new PermissionFilterQuery)
+            ->cachable('permissions')
+            ->relations('roles')
+            ->get();
     }
 
-    public function findById(int $id): ?Permission
+    public function findById(int $id): ?Model
     {
-        return Permission::where('id', $id)->first();
+        return (new PermissionFilterQuery)
+            ->cachable("permission.{$id}")
+            ->closure(function ($query) use ($id) {
+                return $query->where('id', $id);
+            })
+            ->first();
     }
 
     public function findByClosure(Closure $function): Collection

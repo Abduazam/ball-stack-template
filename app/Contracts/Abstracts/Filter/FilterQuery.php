@@ -2,6 +2,9 @@
 
 namespace App\Contracts\Abstracts\Filter;
 
+use App\Contracts\Enums\Immutables\CacheTimeEnum;
+use App\Contracts\Traits\Filter\FilterQueryCachable;
+use App\Contracts\ValueObjects\CacheTime;
 use Closure;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
@@ -10,11 +13,22 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class FilterQuery
 {
+    use FilterQueryCachable;
+
     const LIMIT = 50;
     const ORDER_BY = 'id';
     const ORDER_DIRECTION = 'asc';
 
     protected Builder $builder;
+
+    public function cachable(string $key, ?CacheTime $cacheTime = null): static
+    {
+        $this->cachable = true;
+        $this->key = $key;
+        $this->time = $cacheTime?->getValue() ?? CacheTimeEnum::forever();
+
+        return $this;
+    }
 
     public function relations(...$relations): static
     {
@@ -62,11 +76,19 @@ abstract class FilterQuery
 
     public function first(): ?Model
     {
+        if ($this->cachable) {
+            return $this->firstCache();
+        }
+
         return $this->builder->first();
     }
 
     public function get(int $perPage = 0): Collection|LengthAwarePaginator
     {
+        if ($this->cachable) {
+            return $this->getCache();
+        }
+
         return $perPage === 0 ? $this->builder->get() : $this->builder->paginate($perPage);
     }
 }

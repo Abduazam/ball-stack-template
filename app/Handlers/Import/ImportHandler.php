@@ -40,7 +40,7 @@ class ImportHandler
     /**
      * @throws Throwable
      */
-    public function handle()
+    public function handle(): Batch
     {
         try {
             return $this->importWithJob();
@@ -55,8 +55,10 @@ class ImportHandler
     private function importWithJob(): Batch
     {
         return Bus::batch([
-            new ImportExcelJob($this->import, $this->filepath),
-        ])->dispatch();
+            (new ImportExcelJob($this->import, $this->filepath))->onQueue('import'),
+        ])->catch(function (Batch $batch, Throwable $exception) {
+            dd($exception);
+        })->dispatch();
     }
 
     private function importWithSync(): bool

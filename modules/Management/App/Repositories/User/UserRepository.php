@@ -14,6 +14,7 @@ class UserRepository implements Repositorable
     public function all(): Collection
     {
         return (new UserFilterQuery)
+            ->cachable('users')
             ->relations('roles')
             ->get();
     }
@@ -21,6 +22,7 @@ class UserRepository implements Repositorable
     public function findById(int $id): ?Model
     {
         return (new UserFilterQuery)
+            ->cachable("user.{$id}")
             ->closure(function ($query) use ($id) {
                 return $query->where('id', $id);
             })
@@ -30,6 +32,7 @@ class UserRepository implements Repositorable
     public function findByEmail(string $email): ?Model
     {
         return (new UserFilterQuery)
+            ->cachable("user.{$email}")
             ->closure(function ($query) use ($email) {
                 return $query->where('email', $email);
             })

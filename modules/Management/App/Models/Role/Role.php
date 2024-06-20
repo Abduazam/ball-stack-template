@@ -3,7 +3,9 @@
 namespace Modules\Management\App\Models\Role;
 
 use App\Contracts\Traits\Models\SoftDeleting;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Management\App\Observers\Role\RoleObserver;
 use Spatie\Permission\Models\Role as SpatieRole;
 
 /**
@@ -18,8 +20,8 @@ use Spatie\Permission\Models\Role as SpatieRole;
  * Relations
  * @property $users
  * @property $permissions
- * 
  */
+#[ObservedBy(RoleObserver::class)]
 class Role extends SpatieRole
 {
     use HasFactory, Methods, SoftDeleting;

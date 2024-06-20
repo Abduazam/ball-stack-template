@@ -3,8 +3,10 @@
 namespace Modules\Information\App\Models\Language;
 
 use App\Contracts\Traits\Models\SoftDeleting;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Information\App\Observers\Language\LanguageObserver;
 
 /**
  * Columns
@@ -15,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property $updated_at
  * @property $deleted_at
  */
+#[ObservedBy(LanguageObserver::class)]
 class Language extends Model
 {
     use HasFactory, SoftDeleting;

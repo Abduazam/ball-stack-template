@@ -4,6 +4,7 @@ namespace Modules\Information\App\Repositories\Language;
 
 use App\Contracts\Interfaces\Repository\Repositorable;
 use Closure;
+use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -11,14 +12,20 @@ use Modules\Information\App\Filters\Language\LanguageFilterQuery;
 
 class LanguageRepository implements Repositorable
 {
+    /**
+     * @throws Exception
+     */
     public function all(): Collection
     {
-        return (new LanguageFilterQuery)->get();
+        return (new LanguageFilterQuery)
+            ->cachable('languages')
+            ->get();
     }
 
     public function findById(int $id): ?Model
     {
         return (new LanguageFilterQuery)
+            ->cachable("language.{$id}")
             ->closure(function ($query) use ($id) {
                 return $query->where('id', $id);
             })
@@ -28,6 +35,7 @@ class LanguageRepository implements Repositorable
     public function findBySlug(string $slug): ?Model
     {
         return (new LanguageFilterQuery)
+            ->cachable("language.{$slug}")
             ->closure(function ($query) use ($slug) {
                 return $query->where('slug', $slug);
             })

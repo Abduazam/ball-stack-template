@@ -2,10 +2,10 @@
 
 namespace Modules\Management\App\Providers;
 
-use Illuminate\Foundation\Support\Providers\RouteServiceProvider;
+use Illuminate\Foundation\Support\Providers\RouteServiceProvider as BaseRouteServiceProvider;
 use Illuminate\Support\Facades\Route;
 
-class ManagementRouteServiceProvider extends RouteServiceProvider
+class RouteServiceProvider extends BaseRouteServiceProvider
 {
     public function boot(): void
     {

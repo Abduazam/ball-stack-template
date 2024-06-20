@@ -14,7 +14,7 @@ class LanguageSeeder extends Seeder
     {
         $languages = [
             'en' => "English",
-             'ru' => "Русский",
+            'ru' => "Русский",
         ];
 
         foreach ($languages as $slug => $title) {

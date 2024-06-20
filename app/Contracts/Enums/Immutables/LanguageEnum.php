@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Contracts\Enums\Role;
+namespace App\Contracts\Enums\Immutables;
 
-enum AdminEnum : string
+enum LanguageEnum : string
 {
-    case SUPERADMIN = 'super-admin';
-    case ADMIN = 'admin';
+    case ENGLISH = 'en';
+    case RUSSIAN = 'ru';
 
     public static function toArray(): array
     {

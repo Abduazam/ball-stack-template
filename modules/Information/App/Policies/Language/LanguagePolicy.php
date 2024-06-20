@@ -2,6 +2,7 @@
 
 namespace Modules\Information\App\Policies\Language;
 
+use App\Contracts\Enums\Immutables\LanguageEnum;
 use App\Contracts\Enums\Route\RoutePathEnum;
 use App\Models\User;
 use Modules\Information\App\Models\Language\Language;
@@ -70,7 +71,8 @@ final class LanguagePolicy
     {
         return $user->hasPermissionTo($this->route . 'destroy')
                 && $language->trashed()
-                && $language->slug !== app()->getLocale();
+                && $language->slug !== app()->getLocale()
+                && !in_array($language->slug, LanguageEnum::toArray());
     }
 
     /**

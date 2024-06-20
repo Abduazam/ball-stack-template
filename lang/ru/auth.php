@@ -13,25 +13,25 @@ return [
     |
     */
 
-    'failed' => 'Эти учетные данные не соответствуют нашим записям.',
-    'password' => 'Предоставленный пароль неверен.',
-    'throttle' => 'Слишком много попыток входа. Пожалуйста, попробуйте снова через :seconds секунд.',
+    'failed' => 'These credentials do not match our records.',
+    'password' => 'The provided password is incorrect.',
+    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
     'pages' => [
-        'login' => 'Добро пожаловать в вашу панель управления',
+        'login' => 'Welcome to Your Dashboard',
     ],
 
     'titles' => [
-        'login' => 'Пожалуйста, войдите в систему',
+        'login' => 'Please Sign in',
     ],
 
     'fields' => [
-        'email' => 'Эл. почта',
-        'password' => 'Пароль',
+        'email' => 'Email',
+        'password' => 'Password',
     ],
 
     'buttons' => [
-        'login' => 'Войти',
-        'logout' => 'Выйти',
+        'login' => 'Login',
+        'logout' => 'Logout',
     ]
 ];
