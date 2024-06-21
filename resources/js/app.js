@@ -5,10 +5,8 @@ import.meta.glob([
     '../fonts/simple-line-icons/**',
 ]);
 
+// Codebase
 import './bootstrap';
-
-// Library
-import './codebase/lib/jquery.min.js';
 
 // Custom Scripts
 import './codebase/app.min.js';

@@ -19,7 +19,7 @@ readonly class LanguageDTO extends AbstractObjectTransfer implements ObjectTrans
     public function toArray(): array
     {
         return [
-            'slug' => $this->slug,
+            'slug' => strtolower($this->slug),
             'title' => $this->title,
         ];
     }
