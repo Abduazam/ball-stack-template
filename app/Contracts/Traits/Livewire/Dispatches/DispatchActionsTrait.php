@@ -37,6 +37,8 @@ trait DispatchActionsTrait
     private function actAsCreate(string $action): void
     {
         if ($action === 'create') {
+            $this->dispatch('created');
+
             $this->form->reset();
 
             $this->mounting();

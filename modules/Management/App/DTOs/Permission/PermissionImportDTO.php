@@ -4,6 +4,7 @@ namespace Modules\Management\App\DTOs\Permission;
 
 use App\Contracts\Abstracts\DTO\AbstractObjectTransfer;
 use App\Contracts\Interfaces\DTO\ObjectTransferable;
+use Exception;
 
 readonly class PermissionImportDTO extends AbstractObjectTransfer implements ObjectTransferable
 {
@@ -33,6 +34,9 @@ readonly class PermissionImportDTO extends AbstractObjectTransfer implements Obj
         return config('auth.defaults.guard');
     }
 
+    /**
+     * @throws Exception
+     */
     private function description(): false|string|null
     {
         if (blank($this->description)) {
@@ -45,6 +49,6 @@ readonly class PermissionImportDTO extends AbstractObjectTransfer implements Obj
             return json_encode($decoded);
         }
 
-        return json_encode(['error' => 'Invalid JSON']);
+        throw new Exception("Invalid description");
     }
 }

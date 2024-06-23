@@ -13,6 +13,28 @@ function closeModal() {
 
 window.addEventListener('refresh', closeModal);
 
+function cleanInputs() {
+    const modals = document.querySelectorAll('.modal.show');
+    modals.forEach(modal => {
+        const inputs = modal.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.value = '';
+        });
+
+        // const textareas = modal.querySelectorAll('textarea');
+        // textareas.forEach(textarea => {
+        //     textarea.value = '';
+        // });
+        //
+        // const selects = modal.querySelectorAll('select');
+        // selects.forEach(select => {
+        //     select.selectedIndex = 0;
+        // });
+    });
+}
+
+window.addEventListener('created', cleanInputs);
+
 /**
  * Showing bootstrap dialog listener.
  */

@@ -14,41 +14,41 @@ class ViewServiceProvider extends ServiceProvider implements ProviderLivewireabl
 
     public function boot(): void
     {
-        $this->loadViewsFrom(__DIR__ . '/../../Resource/views', $this->namespace);
+        $this->loadViewsFrom(__DIR__ . '/../../Resources/views', $this->namespace);
 
-        Blade::anonymousComponentPath(__DIR__ . '/../../Resource/components', $this->namespace);
+        Blade::anonymousComponentPath(__DIR__ . '/../../Resources/components', $this->namespace);
 
         $this->loadLivewireViews($this->wireName);
     }
 
     public function loadLivewireViews(string $namespace): void
     {
-        $this->loadViewsFrom(__DIR__ . '/../../Resource/livewire', $namespace);
+        $this->loadViewsFrom(__DIR__ . '/../../Resources/livewire', $namespace);
 
         $components = [
             'management.user' => [
-                'create' => \Modules\Management\App\Livewire\User\Create::class,
-                'delete' => \Modules\Management\App\Livewire\User\Delete::class,
-                'destroy' => \Modules\Management\App\Livewire\User\Destroy::class,
-                'index' => \Modules\Management\App\Livewire\User\Index::class,
-                'restore' => \Modules\Management\App\Livewire\User\Restore::class,
-                'update' => \Modules\Management\App\Livewire\User\Update::class,
+                'create' => \Modules\Management\Livewire\User\Create::class,
+                'delete' => \Modules\Management\Livewire\User\Delete::class,
+                'destroy' => \Modules\Management\Livewire\User\Destroy::class,
+                'index' => \Modules\Management\Livewire\User\Index::class,
+                'restore' => \Modules\Management\Livewire\User\Restore::class,
+                'update' => \Modules\Management\Livewire\User\Update::class,
             ],
 
             'management.role' => [
-                'create' => \Modules\Management\App\Livewire\Role\Create::class,
-                'delete' => \Modules\Management\App\Livewire\Role\Delete::class,
-                'destroy' => \Modules\Management\App\Livewire\Role\Destroy::class,
-                'index' => \Modules\Management\App\Livewire\Role\Index::class,
-                'restore' => \Modules\Management\App\Livewire\Role\Restore::class,
-                'update' => \Modules\Management\App\Livewire\Role\Update::class,
-                'list.user' => \Modules\Management\App\Livewire\Role\List\User::class,
-                'list.permission' => \Modules\Management\App\Livewire\Role\List\Permission::class
+                'create' => \Modules\Management\Livewire\Role\Create::class,
+                'delete' => \Modules\Management\Livewire\Role\Delete::class,
+                'destroy' => \Modules\Management\Livewire\Role\Destroy::class,
+                'index' => \Modules\Management\Livewire\Role\Index::class,
+                'restore' => \Modules\Management\Livewire\Role\Restore::class,
+                'update' => \Modules\Management\Livewire\Role\Update::class,
+                'list.user' => \Modules\Management\Livewire\Role\List\User::class,
+                'list.permission' => \Modules\Management\Livewire\Role\List\Permission::class
             ],
 
             'management.permission' => [
-                'index' => \Modules\Management\App\Livewire\Permission\Index::class,
-                'update' => \Modules\Management\App\Livewire\Permission\Update::class,
+                'index' => \Modules\Management\Livewire\Permission\Index::class,
+                'update' => \Modules\Management\Livewire\Permission\Update::class,
             ]
         ];
 

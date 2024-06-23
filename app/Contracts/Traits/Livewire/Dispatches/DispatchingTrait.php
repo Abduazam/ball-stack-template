@@ -28,11 +28,11 @@ trait DispatchingTrait
         $action = $this->getAction();
 
         if ($this->compare($response)) {
-            $this->dispatch('refresh');
-
             $this->actAsCreate($action);
 
             $this->actAsUpdate($action);
+
+            $this->dispatch('refresh');
 
             $this->flash($action, $model);
         } else {

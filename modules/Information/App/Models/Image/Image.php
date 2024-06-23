@@ -4,6 +4,7 @@ namespace Modules\Information\App\Models\Image;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Information\App\Models\Image\Traits\Relations;
 
 /**
  * Columns

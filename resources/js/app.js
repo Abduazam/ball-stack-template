@@ -12,10 +12,10 @@ import './bootstrap';
 import './codebase/app.min.js';
 import './codebase/script.js';
 
-import Alpine from 'alpinejs'
-
-window.Alpine = Alpine
-
-Alpine.start()
+// import Alpine from 'alpinejs'
+//
+// window.Alpine = Alpine
+//
+// Alpine.start()
 
 
