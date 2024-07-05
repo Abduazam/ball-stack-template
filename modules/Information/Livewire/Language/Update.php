@@ -2,7 +2,7 @@
 
 namespace Modules\Information\Livewire\Language;
 
-use App\Contracts\Traits\Livewire\Dispatches\DispatchingTrait;
+use App\Contracts\Traits\Livewire\Dispatches\Dispatchable;
 use App\Handlers\Action\ActionHandler;
 use Illuminate\Contracts\View\View;
 use Illuminate\Validation\ValidationException;
@@ -13,7 +13,7 @@ use Modules\Information\Livewire\Language\Forms\LanguageForm;
 
 final class Update extends Base
 {
-    use DispatchingTrait;
+    use Dispatchable;
 
     public Language $language;
 
@@ -35,7 +35,7 @@ final class Update extends Base
             new UpdateLanguageAction($this->language, $validated)
         );
 
-        $this->handleResponse($response, 'language');
+        $this->handleResponse($response, $this->model);
     }
 
     public function render(): View

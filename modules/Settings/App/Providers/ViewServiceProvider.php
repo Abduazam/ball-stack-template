@@ -11,19 +11,18 @@ use Modules\Settings\Livewire\Profile\Profile;
 class ViewServiceProvider extends ServiceProvider implements ProviderLivewireable
 {
     protected string $namespace = 'settings';
-    protected string $wireName = 'wire-settings';
+    protected string $wireNamespace = 'wire-settings';
 
     public function boot(): void
     {
         $this->loadViewsFrom(__DIR__ . '/../../Resources/views', $this->namespace);
+        $this->loadViewsFrom(__DIR__ . '/../../Resources/livewire', $this->wireNamespace);
 
-        $this->loadLivewireViews($this->wireName);
+        $this->loadLivewireViews();
     }
 
-    public function loadLivewireViews(string $namespace): void
+    public function loadLivewireViews(): void
     {
-        $this->loadViewsFrom(__DIR__ . '/../../Resources/livewire', $namespace);
-
         Livewire::component('settings.profile', Profile::class);
         Livewire::component('settings.import', Import::class);
     }

@@ -10,23 +10,22 @@ use Livewire\Livewire;
 class ViewServiceProvider extends ServiceProvider implements ProviderLivewireable
 {
     protected string $namespace = 'information';
-    protected string $wireName = 'wire-information';
+    protected string $wireNamespace = 'wire-information';
 
     public function boot(): void
     {
         $this->loadViewsFrom(__DIR__ . '/../../Resources/views', $this->namespace);
+        $this->loadViewsFrom(__DIR__ . '/../../Resources/livewire', $this->wireNamespace);
 
         Blade::anonymousComponentPath(__DIR__ . '/../../Resources/components', $this->namespace);
 
-        $this->loadLivewireViews($this->wireName);
+        $this->loadLivewireViews();
     }
 
-    public function loadLivewireViews(string $namespace): void
+    public function loadLivewireViews(): void
     {
-        $this->loadViewsFrom(__DIR__ . '/../../Resources/livewire', $namespace);
-
         $components = [
-            'information.language' => [
+            'language' => [
                 'create' => \Modules\Information\Livewire\Language\Create::class,
                 'delete' => \Modules\Information\Livewire\Language\Delete::class,
                 'destroy' => \Modules\Information\Livewire\Language\Destroy::class,
@@ -38,7 +37,7 @@ class ViewServiceProvider extends ServiceProvider implements ProviderLivewireabl
 
         foreach ($components as $context => $componentList) {
             foreach ($componentList as $alias => $class) {
-                Livewire::component("{$context}.{$alias}", $class);
+                Livewire::component($this->namespace . ".{$context}.{$alias}", $class);
             }
         }
     }

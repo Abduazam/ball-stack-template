@@ -3,11 +3,14 @@
 namespace Modules\Management\App\Actions\User;
 
 use App\Contracts\Interfaces\Action\Actionable;
+use App\Contracts\Traits\Actions\Imageable\ImageStorable;
 use App\Models\User;
 use Modules\Management\App\DTOs\User\UserDTO;
 
 class CreateUserAction implements Actionable
 {
+    use ImageStorable;
+
     protected UserDTO $dto;
 
     public function __construct(array $data)
@@ -26,14 +29,5 @@ class CreateUserAction implements Actionable
         $user->assignRole($this->dto->role);
 
         return $user->id;
-    }
-
-    private function addNewImage(User $user): void
-    {
-        $path = $this->dto->image->store('users/avatars', 'public');
-
-        $user->image()->create([
-            'path' => $path,
-        ]);
     }
 }

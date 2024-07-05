@@ -12,6 +12,7 @@
         "vite-plugin-static-copy": "^1.0.5"
     },
     "dependencies": {
+        "@alpinejs/mask": "^3.14.1",
         "alpinejs": "^3.14.1"
     }
 }

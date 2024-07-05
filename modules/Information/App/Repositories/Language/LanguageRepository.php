@@ -4,7 +4,6 @@ namespace Modules\Information\App\Repositories\Language;
 
 use App\Contracts\Interfaces\Repository\Repositorable;
 use Closure;
-use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -12,9 +11,6 @@ use Modules\Information\App\Filters\Language\LanguageFilterQuery;
 
 class LanguageRepository implements Repositorable
 {
-    /**
-     * @throws Exception
-     */
     public function all(): Collection
     {
         return (new LanguageFilterQuery)
@@ -28,8 +24,7 @@ class LanguageRepository implements Repositorable
             ->cachable("language.{$id}")
             ->closure(function ($query) use ($id) {
                 return $query->where('id', $id);
-            })
-            ->first();
+            })->first();
     }
 
     public function findBySlug(string $slug): ?Model
@@ -38,8 +33,7 @@ class LanguageRepository implements Repositorable
             ->cachable("language.{$slug}")
             ->closure(function ($query) use ($slug) {
                 return $query->where('slug', $slug);
-            })
-            ->first();
+            })->first();
     }
 
     public function findByClosure(Closure $function): Collection
@@ -52,6 +46,7 @@ class LanguageRepository implements Repositorable
     public function filter(string $search, int $trashed, int $perPage): Collection|LengthAwarePaginator
     {
         return (new LanguageFilterQuery)
+            ->select('id', 'slug', 'title', 'created_at', 'deleted_at')
             ->trashed($trashed)
             ->search($search)
             ->get($perPage);

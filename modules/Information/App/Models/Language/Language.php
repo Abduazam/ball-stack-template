@@ -2,7 +2,7 @@
 
 namespace Modules\Information\App\Models\Language;
 
-use App\Contracts\Traits\Models\SoftDeleting;
+use App\Contracts\Traits\Models\SoftDeletable;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -20,7 +20,7 @@ use Modules\Information\App\Observers\Language\LanguageObserver;
 #[ObservedBy(LanguageObserver::class)]
 class Language extends Model
 {
-    use HasFactory, SoftDeleting;
+    use HasFactory, SoftDeletable;
 
     protected $fillable = [
         'slug',

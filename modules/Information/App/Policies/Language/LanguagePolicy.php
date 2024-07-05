@@ -2,7 +2,7 @@
 
 namespace Modules\Information\App\Policies\Language;
 
-use App\Contracts\Enums\Immutables\LanguageEnum;
+use App\Contracts\Enums\Immutables\Locale\LanguageEnum;
 use App\Contracts\Enums\Route\RoutePathEnum;
 use App\Models\User;
 use Modules\Information\App\Models\Language\Language;

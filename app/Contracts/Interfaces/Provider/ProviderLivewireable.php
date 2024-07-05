@@ -4,5 +4,5 @@ namespace App\Contracts\Interfaces\Provider;
 
 interface ProviderLivewireable
 {
-    public function loadLivewireViews(string $namespace);
+    public function loadLivewireViews();
 }

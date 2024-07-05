@@ -8,55 +8,38 @@ use App\Handlers\Closure\ClosureHandler;
 use Generator;
 use Modules\Information\App\DTOs\Language\LanguageImportDTO;
 use Modules\Information\App\Models\Language\Language;
-use OpenSpout\Common\Exception\IOException;
-use OpenSpout\Common\Exception\UnsupportedTypeException;
-use OpenSpout\Reader\Exception\ReaderNotOpenedException;
-use Throwable;
+use Modules\Information\Transfers\Imports\Language\Traits\EncoderMethods;
 
 final class LanguageImport extends AbstractImport implements Importable
 {
+    use EncoderMethods;
+
+    const DTO = LanguageImportDTO::class;
+
+    protected ClosureHandler $handler;
+
     public function __construct()
     {
         $this->chunkSize = 10;
+        $this->handler = new ClosureHandler();
     }
 
-    /**
-     * @throws IOException
-     * @throws Throwable
-     * @throws ReaderNotOpenedException
-     * @throws UnsupportedTypeException
-     */
     public function import(string $path): bool
     {
-        try {
-            $languageData = $this->generatorData($path, LanguageImportDTO::class);
+        $this->insert($this->data($path));
 
-            $this->insert($languageData);
-
-            return true;
-        } catch (Throwable $exception) {
-            throw new $exception;
-        }
+        return true;
     }
 
-    protected function insert(Generator $collection): void
+    public function insert(Generator $collection): void
     {
-        $languages = [];
+        $data = $this->insertable($collection);
 
-        /**
-         * @var LanguageImportDTO $language
-         */
-        foreach ($collection as $language) {
-            $languages[] = $language->toArray();
-        }
+        $this->handler->handle(function () use ($data) {
+            $chunks = array_chunk($data, $this->chunkSize);
 
-        (new ClosureHandler)->handle(function () use ($languages) {
-            $languageChunk = array_chunk($languages, $this->chunkSize);
-
-            $updateColumns = ['title'];
-
-            foreach ($languageChunk as $chunk) {
-                Language::upsert($chunk, ['slug'], $updateColumns);
+            foreach ($chunks as $chunk) {
+                Language::upsert($chunk, ['slug'], ['title']);
             }
         });
     }

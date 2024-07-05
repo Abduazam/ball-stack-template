@@ -2,32 +2,25 @@
 
 namespace Modules\Settings\Livewire\Import;
 
-use App\Contracts\Enums\Folder\WireFolderPathEnum;
 use App\Contracts\Enums\Route\RoutePathEnum;
-use App\Contracts\Traits\Livewire\Dispatches\DispatchingTrait;
+use App\Contracts\Traits\Livewire\Dispatches\Dispatchable;
 use App\Handlers\Import\ImportHandler;
 use Illuminate\Contracts\View\View;
 use Illuminate\Validation\ValidationException;
-use Livewire\Component;
 use Livewire\WithFileUploads;
 use Modules\Management\App\Repositories\Permissions\PermissionRepository;
+use Modules\Settings\Contracts\Abstracts\Livewire\Import\Base;
 use Modules\Settings\Livewire\Import\Forms\ImportForm;
 use Modules\Settings\Livewire\Import\Methods\ImportMethods;
 use Throwable;
 
-final class Import extends Component
+final class Import extends Base
 {
-    use DispatchingTrait, WithFileUploads, ImportMethods;
-
-    protected string $path = WireFolderPathEnum::IMPORT->value;
+    use Dispatchable, WithFileUploads, ImportMethods;
 
     protected $listeners = ['refresh' => '$refresh'];
 
     public ImportForm $form;
-
-    public mixed $batchId = null;
-    public bool $importing = false;
-    public bool $importFinished = false;
 
     /**
      * @throws ValidationException
@@ -39,12 +32,12 @@ final class Import extends Component
 
         $this->importing = true;
 
-        $batch = (new ImportHandler($validated))->getSection()->saveFile()->handle();
+        $batch = (new ImportHandler($validated))->importable()->store()->handle();
 
         if (is_bool($batch)) {
             $this->importing = false;
 
-            $this->handleResponse(true, 'import', 'view');
+            $this->handleResponse(true, $this->model, $this->type);
         } else {
             $this->batchId = $batch->id;
         }

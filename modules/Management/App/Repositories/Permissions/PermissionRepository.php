@@ -39,6 +39,7 @@ class PermissionRepository implements Repositorable
     public function filter(string $search, int $perPage): Collection|LengthAwarePaginator
     {
         return (new PermissionFilterQuery)
+            ->select('id', 'name', 'description', 'is_default', 'created_at')
             ->count('roles')
             ->search($search)
             ->get($perPage);

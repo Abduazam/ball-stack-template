@@ -13,26 +13,32 @@ abstract class AbstractImport
 {
     protected int $chunkSize = 1000;
 
-    abstract protected function insert(Generator $collection): void;
+    protected bool $withoutHeaders = true;
 
     /**
      * @throws IOException
      * @throws UnsupportedTypeException
      * @throws ReaderNotOpenedException
      */
-    public function generatorData($path, $dto, ?Closure $function = null): Generator
+    public function generatorData(string $path, $dto, ?Closure $function = null): Generator
     {
-        $collection = (new FastExcel)->withoutHeaders()->import($path);
+        $importer = new FastExcel();
 
-        $collection = $collection->slice(1);
+        if ($this->withoutHeaders) {
+            $importer->withoutHeaders();
+        }
+
+        $collection = $importer->import($path);
+
+        if ($this->withoutHeaders) {
+            $collection = $collection->slice(1);
+        }
 
         foreach ($collection as $item) {
-            if ($function) {
-                if ($function($item)) {
-                    yield new $dto($item);
-                }
-            } else {
-                yield new $dto($item);
+            $dtoInstance = new $dto($item);
+
+            if ($function === null || $function($item)) {
+                yield $dtoInstance;
             }
         }
     }

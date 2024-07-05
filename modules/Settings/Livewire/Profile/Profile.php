@@ -5,7 +5,7 @@ namespace Modules\Settings\Livewire\Profile;
 use App\Contracts\Enums\Folder\WireFolderPathEnum;
 use App\Contracts\Traits\Livewire\Actions\RemoveImageTrait;
 use App\Contracts\Traits\Livewire\Actions\ShowPasswordTrait;
-use App\Contracts\Traits\Livewire\Dispatches\DispatchingTrait;
+use App\Contracts\Traits\Livewire\Dispatches\Dispatchable;
 use App\Handlers\Action\ActionHandler;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
@@ -13,13 +13,12 @@ use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Modules\Settings\App\Actions\Profile\UpdateProfileAction;
+use Modules\Settings\Contracts\Abstracts\Livewire\Profile\Base;
 use Modules\Settings\Livewire\Profile\Forms\ProfileForm;
 
-final class Profile extends Component
+final class Profile extends Base
 {
-    use WithFileUploads, DispatchingTrait, RemoveImageTrait, ShowPasswordTrait;
-
-    protected string $path = WireFolderPathEnum::PROFILE->value;
+    use WithFileUploads, Dispatchable, RemoveImageTrait, ShowPasswordTrait;
 
     public User $user;
 
@@ -41,7 +40,7 @@ final class Profile extends Component
             new UpdateProfileAction($this->user, $validated)
         );
 
-        $this->handleResponse($response, 'profile', 'view');
+        $this->handleResponse($response, $this->model, $this->type);
     }
 
     public function render(): View

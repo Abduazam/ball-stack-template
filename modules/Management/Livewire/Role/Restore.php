@@ -2,7 +2,7 @@
 
 namespace Modules\Management\Livewire\Role;
 
-use App\Contracts\Traits\Livewire\Dispatches\DispatchingTrait;
+use App\Contracts\Traits\Livewire\Dispatches\Dispatchable;
 use App\Handlers\Action\ActionHandler;
 use Illuminate\Contracts\View\View;
 use Modules\Management\App\Actions\Role\RestoreRoleAction;
@@ -11,7 +11,7 @@ use Modules\Management\Contracts\Abstracts\Livewire\Role\Base;
 
 final class Restore extends Base
 {
-    use DispatchingTrait;
+    use Dispatchable;
 
     public Role $role;
 
@@ -21,7 +21,7 @@ final class Restore extends Base
             new RestoreRoleAction($this->role)
         );
 
-        $this->handleResponse($response, 'role');
+        $this->handleResponse($response, $this->model);
     }
 
     public function render(): View

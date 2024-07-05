@@ -4,6 +4,7 @@ namespace Modules\Information\Transfers\Exports\Language;
 
 use App\Contracts\Abstracts\Export\AbstractExport;
 use App\Contracts\Interfaces\Export\Exportable;
+use Generator;
 use Modules\Information\App\Repositories\Language\LanguageRepository;
 use OpenSpout\Common\Exception\InvalidArgumentException;
 use OpenSpout\Common\Exception\IOException;
@@ -17,9 +18,9 @@ final class LanguageExport extends AbstractExport implements Exportable
 
     public function __construct(string $model)
     {
-        parent::__construct($model);
-
         $this->languageRepository = new LanguageRepository();
+
+        parent::__construct($model);
     }
 
     /**
@@ -30,27 +31,32 @@ final class LanguageExport extends AbstractExport implements Exportable
      */
     public function export(): string
     {
-        $collection = $this->languageRepository->all();
-
-        $excel = new FastExcel($this->generator($collection));
+        $excel = new FastExcel($this->collection());
 
         $excel->export($this->path, function ($language) {
             return $this->asArray($language);
         });
 
-        return $this->publicPath();
+        return $this->path();
     }
 
-    protected function headers(): void
+    public function collection(): Generator
+    {
+        $collection = $this->languageRepository->all();
+
+        return $this->generator($collection);
+    }
+
+    public function headers(): void
     {
         $this->headers = [
-            'id' => $this->getHeader('fields.columns.general.id'),
-            'slug' => $this->getHeader('fields.columns.language.slug'),
-            'title' => $this->getHeader('fields.columns.language.title'),
+            'id' => $this->head('fields.columns.general.id'),
+            'slug' => $this->head('fields.columns.language.slug'),
+            'title' => $this->head('fields.columns.language.title'),
         ];
     }
 
-    protected function asArray($item): array
+    public function asArray($item): array
     {
         $result = [];
 

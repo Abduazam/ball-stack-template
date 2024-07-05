@@ -8,4 +8,8 @@ use Livewire\Component;
 abstract class Base extends Component
 {
     protected string $path = WireFolderPathEnum::ROLE->value;
+
+    protected string $model = 'role';
+
+    protected string $type = 'view';
 }

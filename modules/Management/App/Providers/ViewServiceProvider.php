@@ -10,23 +10,22 @@ use Livewire\Livewire;
 class ViewServiceProvider extends ServiceProvider implements ProviderLivewireable
 {
     protected string $namespace = 'management';
-    protected string $wireName = 'wire-management';
+    protected string $wireNamespace = 'wire-management';
 
     public function boot(): void
     {
         $this->loadViewsFrom(__DIR__ . '/../../Resources/views', $this->namespace);
+        $this->loadViewsFrom(__DIR__ . '/../../Resources/livewire', $this->wireNamespace);
 
         Blade::anonymousComponentPath(__DIR__ . '/../../Resources/components', $this->namespace);
 
-        $this->loadLivewireViews($this->wireName);
+        $this->loadLivewireViews();
     }
 
-    public function loadLivewireViews(string $namespace): void
+    public function loadLivewireViews(): void
     {
-        $this->loadViewsFrom(__DIR__ . '/../../Resources/livewire', $namespace);
-
         $components = [
-            'management.user' => [
+            'user' => [
                 'create' => \Modules\Management\Livewire\User\Create::class,
                 'delete' => \Modules\Management\Livewire\User\Delete::class,
                 'destroy' => \Modules\Management\Livewire\User\Destroy::class,
@@ -35,7 +34,7 @@ class ViewServiceProvider extends ServiceProvider implements ProviderLivewireabl
                 'update' => \Modules\Management\Livewire\User\Update::class,
             ],
 
-            'management.role' => [
+            'role' => [
                 'create' => \Modules\Management\Livewire\Role\Create::class,
                 'delete' => \Modules\Management\Livewire\Role\Delete::class,
                 'destroy' => \Modules\Management\Livewire\Role\Destroy::class,
@@ -46,7 +45,7 @@ class ViewServiceProvider extends ServiceProvider implements ProviderLivewireabl
                 'list.permission' => \Modules\Management\Livewire\Role\List\Permission::class
             ],
 
-            'management.permission' => [
+            'permission' => [
                 'index' => \Modules\Management\Livewire\Permission\Index::class,
                 'update' => \Modules\Management\Livewire\Permission\Update::class,
             ]
@@ -54,7 +53,7 @@ class ViewServiceProvider extends ServiceProvider implements ProviderLivewireabl
 
         foreach ($components as $context => $componentList) {
             foreach ($componentList as $alias => $class) {
-                Livewire::component("{$context}.{$alias}", $class);
+                Livewire::component($this->namespace . ".{$context}.{$alias}", $class);
             }
         }
     }

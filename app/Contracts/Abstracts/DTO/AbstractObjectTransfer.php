@@ -10,4 +10,9 @@ readonly abstract class AbstractObjectTransfer
             return !is_null($value);
         });
     }
+
+    public function offsetArrayKey(array $array, int $offset = 1): array
+    {
+        return array_slice($array, $offset, null, true);
+    }
 }

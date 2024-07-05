@@ -4,6 +4,8 @@ namespace Modules\Management\Transfers\Exports\Permission;
 
 use App\Contracts\Abstracts\Export\AbstractExport;
 use App\Contracts\Interfaces\Export\Exportable;
+use Generator;
+use Modules\Information\App\Repositories\Language\LanguageRepository;
 use Modules\Management\App\Repositories\Permissions\PermissionRepository;
 use OpenSpout\Common\Exception\InvalidArgumentException;
 use OpenSpout\Common\Exception\IOException;
@@ -13,54 +15,62 @@ use Rap2hpoutre\FastExcel\FastExcel;
 
 final class PermissionExport extends AbstractExport implements Exportable
 {
-    protected PermissionRepository $permissionRepository;
+    public LanguageRepository $languageRepository;
+    public PermissionRepository $permissionRepository;
 
     public function __construct(string $model)
     {
-        parent::__construct($model);
-
+        $this->languageRepository = new LanguageRepository();
         $this->permissionRepository = new PermissionRepository();
+
+        parent::__construct($model);
     }
 
     /**
-     * @throws IOException
      * @throws WriterNotOpenedException
+     * @throws IOException
      * @throws UnsupportedTypeException
      * @throws InvalidArgumentException
      */
     public function export(): string
     {
-        $collection = $this->permissionRepository->all();
-
-        $excel = new FastExcel($this->generator($collection));
+        $excel = new FastExcel($this->collection());
 
         $excel->export($this->path, function ($permission) {
             return $this->asArray($permission);
         });
 
-        return $this->publicPath();
+        return $this->path();
     }
 
-    protected function headers(): void
+    public function collection(): Generator
+    {
+        $result = $this->permissionRepository->all();
+
+        return $this->generator($result);
+    }
+
+    public function headers(): void
     {
         $this->headers = [
-            'id' => $this->getHeader('fields.columns.general.id'),
-            'name' => $this->getHeader('fields.columns.permission.name'),
-            'description' => $this->getHeader('fields.columns.permission.description'),
-            'is_default' => $this->getHeader('fields.columns.permission.is_default'),
-            'roles' => $this->getHeader('fields.columns.permission.roles'),
+            'id' => $this->head('fields.columns.general.id'),
+            'name' => $this->head('fields.columns.permission.name'),
+            'is_default' => $this->head('fields.columns.permission.is_default'),
         ];
+
+        foreach ($this->languageRepository->all() as $language) {
+            $this->headers[$language->slug] = $language->slug;
+        }
     }
 
-    protected function asArray($item): array
+    public function asArray($item): array
     {
         $result = [];
 
         foreach ($this->headers as $attribute => $header) {
             $value = match ($attribute) {
-                'description' => $item->description,
-                'roles' => $item->roles->pluck('name')->implode(', '),
-                default => $item->$attribute
+                'id', 'name', 'is_default' => $item->$attribute,
+                default => translation($item->title, $attribute),
             };
 
             $result[$header] = $value;

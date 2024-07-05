@@ -2,7 +2,7 @@
 
 namespace App\Contracts\Abstracts\Filter;
 
-use App\Contracts\Enums\Immutables\CacheTimeEnum;
+use App\Contracts\Enums\Immutables\Cache\CacheTimeEnum;
 use App\Contracts\Traits\Filter\FilterQueryCachable;
 use App\Contracts\Traits\Filter\FilterQueryLimitable;
 use App\Contracts\ValueObjects\CacheTime;
@@ -27,6 +27,13 @@ abstract class FilterQuery
         $this->cachable = true;
         $this->key = $key;
         $this->time = $cacheTime?->getValue() ?? CacheTimeEnum::forever();
+
+        return $this;
+    }
+
+    public function select(...$columns): static
+    {
+        $this->builder = $this->builder->select(...$columns);
 
         return $this;
     }
@@ -92,12 +99,12 @@ abstract class FilterQuery
             return $this->getCache();
         }
 
-        if ($perPage === 0) {
-            return $this->builder->get();
-        }
-
         if ($this->limit) {
             return $this->customPaginate($perPage);
+        }
+
+        if ($perPage === 0) {
+            return $this->builder->get();
         }
 
         return $this->builder->paginate($perPage);

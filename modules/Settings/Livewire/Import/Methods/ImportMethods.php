@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Bus;
 
 trait ImportMethods
 {
+    public mixed $batchId = null;
+    public bool $importing = false;
+    public bool $importFinished = false;
+
     public function mount(): void
     {
         $this->dispatchTrue();
@@ -30,7 +34,7 @@ trait ImportMethods
         if ($this->importFinished) {
             $this->importing = false;
 
-            $this->handleResponse(true, 'import', 'view');
+            $this->handleResponse(true, $this->model, $this->type);
         }
     }
 }

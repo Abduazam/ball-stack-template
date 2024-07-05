@@ -2,7 +2,7 @@
 
 namespace App\Contracts\Traits\Livewire\Dispatches;
 
-trait DispatchingTrait
+trait Dispatchable
 {
     use DispatchActionsTrait, DispatchHandlesTrait;
 

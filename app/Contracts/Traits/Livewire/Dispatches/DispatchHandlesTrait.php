@@ -3,7 +3,7 @@
 namespace App\Contracts\Traits\Livewire\Dispatches;
 
 use App\Contracts\Classes\Livewire\ModelTranslation;
-use App\Contracts\Classes\Livewire\Redirect;
+use App\Contracts\Classes\Livewire\ModelRedirect;
 use Throwable;
 
 trait DispatchHandlesTrait
@@ -30,6 +30,6 @@ trait DispatchHandlesTrait
 
     public function getRedirect(string $key): string
     {
-        return (new Redirect)->take($key);
+        return (new ModelRedirect)->take($key);
     }
 }

@@ -5,7 +5,7 @@ namespace App\Contracts\Classes\Livewire;
 use App\Contracts\Enums\Route\RoutePathEnum;
 use InvalidArgumentException;
 
-class Redirect
+class ModelRedirect
 {
     protected array $redirects = [
         # Information

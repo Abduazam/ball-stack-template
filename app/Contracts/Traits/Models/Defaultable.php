@@ -1,8 +1,8 @@
 <?php
 
-namespace Modules\Management\App\Models\Permission\Traits;
+namespace App\Contracts\Traits\Models;
 
-trait Methods
+trait Defaultable
 {
     public function default(): string
     {

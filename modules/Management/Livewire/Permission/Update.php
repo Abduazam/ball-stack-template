@@ -2,7 +2,7 @@
 
 namespace Modules\Management\Livewire\Permission;
 
-use App\Contracts\Traits\Livewire\Dispatches\DispatchingTrait;
+use App\Contracts\Traits\Livewire\Dispatches\Dispatchable;
 use App\Handlers\Action\ActionHandler;
 use Illuminate\Contracts\View\View;
 use Illuminate\Validation\ValidationException;
@@ -13,7 +13,7 @@ use Modules\Management\Livewire\Permission\Forms\PermissionForm;
 
 final class Update extends Base
 {
-    use DispatchingTrait;
+    use Dispatchable;
 
     public Permission $permission;
 
@@ -35,7 +35,7 @@ final class Update extends Base
             new UpdatePermissionAction($this->permission, $validated)
         );
 
-        $this->handleResponse($response, 'permission');
+        $this->handleResponse($response, $this->model);
     }
 
     public function render(): View

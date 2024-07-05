@@ -32,18 +32,14 @@ final class UserForm extends Form
     public function rules(): array
     {
         $rule = [
-            'name' => ['required', 'string', 'max:50'],
-            'email' => ['required', 'string', 'max:50', 'email', Rule::unique('users', 'email')->ignore($this->userId)],
+            'name' => ['required', 'max:50'],
+            'email' => ['required', 'max:50', 'email', Rule::unique('users', 'email')->ignore($this->userId)],
+            'password' => ['min:4', 'max:12'],
             'role' => ['required', 'integer', 'exists:roles,id'],
-            'password' => ['string', 'min:4', 'max:12'],
             'image' => ['nullable', new ImageValidRule],
         ];
 
-        if ($this->userId) {
-            $rule['password'][] = 'nullable';
-        } else {
-            $rule['password'][] = 'required';
-        }
+        $rule['password'][] = $this->userId ? 'nullable' : 'required';
 
         return $rule;
     }

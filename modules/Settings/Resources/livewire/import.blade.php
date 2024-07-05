@@ -14,8 +14,10 @@
                     @can($section->name)
                         @php
                             $data = collect(explode('.', $section->name))->slice(2)->toArray();
+
+                            $prefix = $data[3] !== 'import' ? $data[3] : $data[2];
                         @endphp
-                    <option value="{{ $section->name }}">{{ trans('fields.actions.imports.' . $data[2]) }}</option>
+                        <option value="{{ $section->name }}">{{ trans('fields.actions.imports.' . $prefix) }}</option>
                     @endcan
                 @endforeach
             </x-forms.select>
@@ -28,6 +30,3 @@
         </div>
     @endif
 </x-forms.form>
-
-
-

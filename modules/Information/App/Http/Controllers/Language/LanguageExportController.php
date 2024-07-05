@@ -21,6 +21,6 @@ class LanguageExportController extends Controller
     {
         $this->authorize('export', Language::class);
 
-        return (new ExportHandler)->handle(new LanguageExport('language'));
+        return $handler->handle(new LanguageExport('language'));
     }
 }

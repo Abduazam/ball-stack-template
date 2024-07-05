@@ -3,13 +3,16 @@
 namespace Modules\Management\App\Actions\User;
 
 use App\Contracts\Interfaces\Action\Actionable;
+use App\Contracts\Traits\Actions\Imageable\ImageDeletable;
+use App\Contracts\Traits\Actions\Imageable\ImageStorable;
 use App\Models\User;
-use Illuminate\Support\Facades\Storage;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Modules\Management\App\DTOs\User\UserDTO;
 
 class UpdateUserAction implements Actionable
 {
+    use ImageStorable, ImageDeletable;
+
     protected User $user;
     protected UserDTO $dto;
 
@@ -41,24 +44,6 @@ class UpdateUserAction implements Actionable
             $this->deletePreviousImage();
 
             $this->addNewImage($this->user);
-        }
-    }
-
-    private function addNewImage(User $user): void
-    {
-        $path = $this->dto->image->store('users/avatars', 'public');
-
-        $user->image()->create([
-            'path' => $path,
-        ]);
-    }
-
-    private function deletePreviousImage(): void
-    {
-        if ($this->user->image) {
-            Storage::disk('public')->delete($this->user->image->path);
-
-            $this->user->image->delete();
         }
     }
 

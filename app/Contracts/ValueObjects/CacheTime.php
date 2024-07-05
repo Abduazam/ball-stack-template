@@ -2,7 +2,7 @@
 
 namespace App\Contracts\ValueObjects;
 
-use App\Contracts\Enums\Immutables\CacheTimeEnum;
+use App\Contracts\Enums\Immutables\Cache\CacheTimeEnum;
 use Exception;
 
 class CacheTime

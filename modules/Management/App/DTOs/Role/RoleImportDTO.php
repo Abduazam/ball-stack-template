@@ -4,9 +4,12 @@ namespace Modules\Management\App\DTOs\Role;
 
 use App\Contracts\Abstracts\DTO\AbstractObjectTransfer;
 use App\Contracts\Interfaces\DTO\ObjectTransferable;
+use App\Contracts\Traits\DTOs\Guardable\GuardName;
 
 readonly class RoleImportDTO extends AbstractObjectTransfer implements ObjectTransferable
 {
+    use GuardName;
+
     public string $name;
     public string $users;
     public string $permissions;
@@ -24,10 +27,5 @@ readonly class RoleImportDTO extends AbstractObjectTransfer implements ObjectTra
             'name' => $this->name,
             'guard_name' => $this->guardName(),
         ];
-    }
-
-    private function guardName(): string
-    {
-        return config('auth.defaults.guard');
     }
 }

@@ -4,6 +4,7 @@ namespace App\Handlers\Import;
 
 use App\Contracts\Classes\Import\ImportObject;
 use App\Contracts\Interfaces\Import\Importable;
+use App\Handlers\Import\Traits\FileManageTrait;
 use Illuminate\Bus\Batch;
 use Illuminate\Support\Facades\Bus;
 use Modules\Settings\App\DTOs\Import\ImportDTO;
@@ -12,8 +13,9 @@ use Throwable;
 
 class ImportHandler
 {
+    use FileManageTrait;
+
     protected ImportDTO $dto;
-    protected ?string $filepath = null;
     protected Importable $import;
 
     public function __construct(array $data)
@@ -21,18 +23,11 @@ class ImportHandler
         $this->dto = new ImportDTO($data);
     }
 
-    public function getSection(): static
+    public function importable(): static
     {
-        $this->import = (new ImportObject)->take($this->dto->section);
+        $importable = new ImportObject();
 
-        return $this;
-    }
-
-    public function saveFile(): static
-    {
-        $path = $this->dto->file->store('imports');
-
-        $this->filepath = storage_path('app/' . $path);
+        $this->import = $importable->take($this->dto->section);
 
         return $this;
     }
@@ -40,11 +35,12 @@ class ImportHandler
     /**
      * @throws Throwable
      */
-    public function handle(): Batch
+    public function handle(): Batch|bool
     {
         try {
-            return $this->importWithJob();
+            return $this->importWithSync();
         } catch (Throwable $exception) {
+            dd($exception);
             throw new $exception;
         }
     }
@@ -57,7 +53,7 @@ class ImportHandler
         return Bus::batch([
             (new ImportExcelJob($this->import, $this->filepath))->onQueue('import'),
         ])->catch(function (Batch $batch, Throwable $exception) {
-            dd($exception);
+            throw new $exception;
         })->dispatch();
     }
 

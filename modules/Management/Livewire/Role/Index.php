@@ -2,9 +2,9 @@
 
 namespace Modules\Management\Livewire\Role;
 
-use App\Contracts\Traits\Livewire\Filters\PaginationTrait;
-use App\Contracts\Traits\Livewire\Filters\SearchTrait;
-use App\Contracts\Traits\Livewire\Filters\TrashedTrait;
+use App\Contracts\Traits\Livewire\Filters\Paginatable;
+use App\Contracts\Traits\Livewire\Filters\Searchable;
+use App\Contracts\Traits\Livewire\Filters\Trasheable;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Lazy;
 use Modules\Management\App\Repositories\Role\RoleRepository;
@@ -13,7 +13,7 @@ use Modules\Management\Contracts\Abstracts\Livewire\Role\Base;
 #[Lazy]
 final class Index extends Base
 {
-    use SearchTrait, TrashedTrait, PaginationTrait;
+    use Searchable, Trasheable, Paginatable;
 
     protected $listeners = ['refresh' => '$refresh'];
 

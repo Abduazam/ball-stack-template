@@ -4,7 +4,7 @@ namespace Modules\Management\Livewire\User;
 
 use App\Contracts\Traits\Livewire\Actions\RemoveImageTrait;
 use App\Contracts\Traits\Livewire\Actions\ShowPasswordTrait;
-use App\Contracts\Traits\Livewire\Dispatches\DispatchingTrait;
+use App\Contracts\Traits\Livewire\Dispatches\Dispatchable;
 use App\Handlers\Action\ActionHandler;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
@@ -19,7 +19,7 @@ use Modules\Management\Livewire\User\Forms\UserForm;
 #[Lazy]
 final class Update extends Base
 {
-    use WithFileUploads, DispatchingTrait, RemoveImageTrait, ShowPasswordTrait;
+    use WithFileUploads, Dispatchable, RemoveImageTrait, ShowPasswordTrait;
 
     public User $user;
 
@@ -41,7 +41,7 @@ final class Update extends Base
             new UpdateUserAction($this->user, $validated)
         );
 
-        $this->handleResponse($response, 'user', 'view');
+        $this->handleResponse($response, $this->model, $this->type);
     }
 
     public function render(RoleRepository $roleRepository): View

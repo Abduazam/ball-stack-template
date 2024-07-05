@@ -2,7 +2,7 @@
 
 namespace App\Contracts\Traits\Livewire\Filters;
 
-trait SearchTrait
+trait Searchable
 {
     public string $search = '';
 }

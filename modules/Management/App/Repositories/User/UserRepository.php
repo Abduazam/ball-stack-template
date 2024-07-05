@@ -25,8 +25,7 @@ class UserRepository implements Repositorable
             ->cachable("user.{$id}")
             ->closure(function ($query) use ($id) {
                 return $query->where('id', $id);
-            })
-            ->first();
+            })->first();
     }
 
     public function findByEmail(string $email): ?Model
@@ -35,8 +34,7 @@ class UserRepository implements Repositorable
             ->cachable("user.{$email}")
             ->closure(function ($query) use ($email) {
                 return $query->where('email', $email);
-            })
-            ->first();
+            })->first();
     }
 
     public function findByClosure(Closure $function): Collection
@@ -49,6 +47,7 @@ class UserRepository implements Repositorable
     public function filter(string $search, int $trashed, int $perPage): Collection|LengthAwarePaginator
     {
         return (new UserFilterQuery)
+            ->select('id', 'name', 'email', 'created_at', 'deleted_at')
             ->relations('roles')
             ->trashed($trashed)
             ->search($search)

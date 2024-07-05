@@ -43,7 +43,7 @@ class UserController extends Controller
         $this->authorize('show', $user);
 
         return view($this->path . 'show', [
-            'user' => $user->load('roles')
+            'user' => $user->load('image', 'roles')
         ]);
     }
 

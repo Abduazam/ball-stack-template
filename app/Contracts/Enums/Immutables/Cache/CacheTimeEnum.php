@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Contracts\Enums\Immutables;
+namespace App\Contracts\Enums\Immutables\Cache;
 
 enum CacheTimeEnum : int
 {

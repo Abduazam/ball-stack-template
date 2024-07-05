@@ -2,7 +2,7 @@
 
 namespace Modules\Management\App\Models\Role;
 
-use App\Contracts\Traits\Models\SoftDeleting;
+use App\Contracts\Traits\Models\SoftDeletable;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Management\App\Models\Role\Traits\Methods;
@@ -25,5 +25,5 @@ use Spatie\Permission\Models\Role as SpatieRole;
 #[ObservedBy(RoleObserver::class)]
 class Role extends SpatieRole
 {
-    use HasFactory, Methods, SoftDeleting;
+    use HasFactory, Methods, SoftDeletable;
 }

@@ -5,15 +5,13 @@ namespace Modules\Management\Livewire\Role\Methods;
 use Illuminate\Database\Eloquent\Collection;
 use Modules\Management\App\Repositories\Permissions\PermissionRepository;
 
-trait RoleMethods
+trait PermissionMethods
 {
-    public function updated(string $property): void
+    public function updatedFormAll(bool $value): void
     {
-        if ($property === 'form.all') {
-            $this->form->permissions = $this->form->all
-                ? (new PermissionRepository)->all()->pluck('id')->toArray()
-                : [];
-        }
+        $this->form->permissions = $value
+            ? (new PermissionRepository)->all()->pluck('id')->toArray()
+            : [];
     }
 
     public function setGroupPermission(string $permissionIds): void

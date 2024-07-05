@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands\CleanCommands;
 
-use App\Contracts\Enums\Immutables\LanguageEnum;
+use App\Contracts\Enums\Immutables\Locale\LanguageEnum;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 

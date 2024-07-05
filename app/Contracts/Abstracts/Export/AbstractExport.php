@@ -2,62 +2,28 @@
 
 namespace App\Contracts\Abstracts\Export;
 
-use App\Contracts\Classes\Livewire\ModelTranslation;
 use Generator;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
+use App\Contracts\Abstracts\Export\Traits\FileManageTrait;
 
 abstract class AbstractExport
 {
+    use FileManageTrait;
+
     protected array $headers = [];
-
-    protected string $path;
-
-    protected string $folder = 'exports';
-
-    protected string $filename = 'export';
-
-    protected string $type = 'xlsx';
 
     protected int $chunkSize = 1000;
 
-    abstract protected function headers(): void;
-
-    abstract protected function asArray($item): array;
-
     public function __construct(string $model)
     {
-        $this->setFilename($model);
-
-        $this->setPath();
-
+        $this->makeFilename($model);
+        $this->makeFilepath();
         $this->headers();
     }
 
-    protected function getHeader(string $key): string
+    protected function head(string $key): string
     {
         return trans($key);
-    }
-
-    public function setFilename(string $model): void
-    {
-        $translation = (new ModelTranslation)->take($model);
-
-        $this->filename = trans($translation);
-    }
-
-    public function setPath(): void
-    {
-        if (! file_exists(public_path($this->folder))) {
-            mkdir(public_path($this->folder), 0755, true);
-        }
-
-        $this->path = $this->folder . '/' . $this->filename . '.' . $this->type;
-    }
-
-    public function publicPath(): string
-    {
-        return public_path($this->path);
     }
 
     public function generator(Collection $collection): Generator

@@ -3,7 +3,9 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Contracts\Traits\Models\SoftDeleting;
+use App\Contracts\Traits\Models\SoftDeletable;
+use App\Models\Traits\Methods;
+use App\Models\Traits\Relations;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -29,7 +31,7 @@ use Spatie\Permission\Traits\HasRoles;
 #[ObservedBy(UserObserver::class)]
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasRoles, Methods, Relations, SoftDeleting;
+    use HasFactory, Notifiable, HasRoles, Methods, Relations, SoftDeletable;
 
     /**
      * The attributes that are mass assignable.

@@ -8,4 +8,6 @@ use Livewire\Component;
 abstract class Base extends Component
 {
     protected string $path = WireFolderPathEnum::LANGUAGE->value;
+
+    protected string $model = 'language';
 }

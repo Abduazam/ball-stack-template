@@ -18,8 +18,7 @@ class RoleRepository implements Repositorable
             ->relations('users', 'permissions')
             ->closure(function ($query) {
                 return $query->where('name', '!=', 'super-admin');
-            })
-            ->get();
+            })->get();
     }
 
     public function findById(int $id): ?Model
@@ -28,8 +27,7 @@ class RoleRepository implements Repositorable
             ->cachable("role.{$id}")
             ->closure(function ($query) use ($id) {
                 return $query->where('id', $id);
-            })
-            ->first();
+            })->first();
     }
 
     public function findByName(string $name): ?Model
@@ -38,8 +36,7 @@ class RoleRepository implements Repositorable
             ->cachable("role.{$name}")
             ->closure(function ($query) use ($name) {
                 return $query->where('name', $name);
-            })
-            ->first();
+            })->first();
     }
 
     public function findByClosure(Closure $function): Collection
@@ -52,11 +49,11 @@ class RoleRepository implements Repositorable
     public function filter(string $search, int $trashed, int $perPage): Collection|LengthAwarePaginator
     {
         return (new RoleFilterQuery)
+            ->select('id', 'name', 'created_at', 'deleted_at')
             ->count('users', 'permissions')
             ->closure(function ($query) {
                 $query->where('name', '!=', 'super-admin');
-            })
-            ->trashed($trashed)
+            })->trashed($trashed)
             ->search($search)
             ->sort()
             ->get($perPage);

@@ -2,7 +2,7 @@
 
 namespace Modules\Information\Livewire\Language;
 
-use App\Contracts\Traits\Livewire\Dispatches\DispatchingTrait;
+use App\Contracts\Traits\Livewire\Dispatches\Dispatchable;
 use App\Handlers\Action\ActionHandler;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
@@ -12,7 +12,7 @@ use Modules\Information\Contracts\Abstracts\Livewire\Language\Base;
 
 final class Delete extends Base
 {
-    use DispatchingTrait;
+    use Dispatchable;
 
     public Language $language;
 
@@ -22,7 +22,7 @@ final class Delete extends Base
             new DeleteLanguageAction($this->language)
         );
 
-        $this->handleResponse($response, 'language');
+        $this->handleResponse($response, $this->model);
     }
 
     #[On('updated')]

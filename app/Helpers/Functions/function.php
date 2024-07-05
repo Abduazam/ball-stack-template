@@ -4,19 +4,35 @@ if (! function_exists('translation')) {
     /**
      * Get the available container instance.
      *
-     * @param string|null $string
+     * @param string|null $value
+     * @param string|null $locale
      * @return string|null
      */
-    function translation(?string $string): ?string
+    function translation(?string $value, ?string $locale = null): ?string
     {
-        if ($string === null) {
-            return null;
+        if (is_null($locale)) {
+            $locale = app()->getLocale();
         }
 
-        $locale = app()->getLocale();
+        $data = json_decode($value, true);
 
-        $data = json_decode($string, true);
+        if (json_last_error() === JSON_ERROR_NONE && is_array($data)) {
+            return $data[$locale] ?? $data['en'] ?? $value;
+        }
 
-        return $data[$locale] ?? null;
+        return $value;
+    }
+}
+
+if (! function_exists('money')) {
+    /**
+     * Converts straight number to money format.
+     *
+     * @param string $value
+     * @return string|null
+     */
+    function money(string $value): ?string
+    {
+        return number_format($value);
     }
 }

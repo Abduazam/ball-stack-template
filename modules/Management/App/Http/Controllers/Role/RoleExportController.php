@@ -5,8 +5,8 @@ namespace Modules\Management\App\Http\Controllers\Role;
 use App\Handlers\Export\ExportHandler;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Access\AuthorizationException;
-use Modules\Management\App\DataTransfer\Exports\Role\RoleExport;
 use Modules\Management\App\Models\Role\Role;
+use Modules\Management\Transfers\Exports\Role\RoleExport;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Throwable;
 
@@ -21,6 +21,6 @@ class RoleExportController extends Controller
     {
         $this->authorize('export', Role::class);
 
-        return (new ExportHandler)->handle(new RoleExport('role'));
+        return $handler->handle(new RoleExport('role'));
     }
 }

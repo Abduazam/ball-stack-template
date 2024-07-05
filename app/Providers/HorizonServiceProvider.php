@@ -2,9 +2,8 @@
 
 namespace App\Providers;
 
+use App\Contracts\Enums\Immutables\Role\AdminEnum;
 use Illuminate\Support\Facades\Gate;
-use App\Contracts\Enums\Immutables\AdminEnum;
-use Laravel\Horizon\Horizon;
 use Laravel\Horizon\HorizonApplicationServiceProvider;
 
 class HorizonServiceProvider extends HorizonApplicationServiceProvider

@@ -6,7 +6,7 @@ use App\Handlers\Export\ExportHandler;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
-use Modules\Management\App\DataTransfer\Exports\User\UserExport;
+use Modules\Management\Transfers\Exports\User\UserExport;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Throwable;
 
@@ -21,6 +21,6 @@ class UserExportController extends Controller
     {
         $this->authorize('export', User::class);
 
-        return (new ExportHandler)->handle(new UserExport('user'));
+        return $handler->handle(new UserExport('user'));
     }
 }

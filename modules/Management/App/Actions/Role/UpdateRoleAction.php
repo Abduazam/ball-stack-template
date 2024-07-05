@@ -21,30 +21,8 @@ class UpdateRoleAction implements Actionable
     {
         $this->role->update($this->dto->toArray());
 
-        $newPermissions = $this->dto->permissions;
-
-        $currentPermissions = $this->role->permissions;
-
-        $this->revokePermissions($newPermissions, $currentPermissions);
-
-        $this->givePermissions($newPermissions, $currentPermissions);
+        $this->role->syncPermissions($this->dto->permissions);
 
         return $this->role->id;
-    }
-
-    private function revokePermissions($newPermissions, $currentPermissions): void
-    {
-        $permissionsToRemove = $currentPermissions->reject(function ($permission) use ($newPermissions) {
-            return in_array($permission->id, $newPermissions);
-        });
-
-        $this->role->revokePermissionTo($permissionsToRemove);
-    }
-
-    private function givePermissions($newPermissions, $currentPermissions): void
-    {
-        $permissions = collect($newPermissions)->diff($currentPermissions->pluck('id')->toArray());
-
-        $this->role->givePermissionTo($permissions);
     }
 }

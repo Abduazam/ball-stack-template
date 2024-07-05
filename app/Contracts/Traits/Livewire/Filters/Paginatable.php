@@ -5,7 +5,7 @@ namespace App\Contracts\Traits\Livewire\Filters;
 use Livewire\WithPagination;
 use Livewire\WithoutUrlPagination;
 
-trait PaginationTrait
+trait Paginatable
 {
     use WithPagination, WithoutUrlPagination;
 

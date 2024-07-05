@@ -12,10 +12,11 @@ import './bootstrap';
 import './codebase/app.min.js';
 import './codebase/script.js';
 
-// import Alpine from 'alpinejs'
-//
-// window.Alpine = Alpine
-//
-// Alpine.start()
+import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.esm';
+import mask from '@alpinejs/mask';
+
+Alpine.plugin(mask);
+
+Livewire.start();
 
 

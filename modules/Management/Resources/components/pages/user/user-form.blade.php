@@ -1,4 +1,4 @@
-@props(['roles'])
+@props(['roles', 'branches'])
 
 <x-forms.input wire:model.blur="form.name" label="{{ trans('fields.columns.user.name') }}" name="form.name" placeholder="{{ trans('fields.placeholders.user.name') }}" />
 

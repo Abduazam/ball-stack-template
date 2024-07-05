@@ -6,65 +6,50 @@ use App\Contracts\Abstracts\Import\AbstractImport;
 use App\Contracts\Interfaces\Import\Importable;
 use App\Handlers\Closure\ClosureHandler;
 use Generator;
+use Modules\Information\App\Repositories\Language\LanguageRepository;
 use Modules\Management\App\DTOs\Permission\PermissionImportDTO;
 use Modules\Management\App\Models\Permission\Permission;
 use Modules\Management\App\Repositories\Permissions\PermissionRepository;
-use OpenSpout\Common\Exception\IOException;
-use OpenSpout\Common\Exception\UnsupportedTypeException;
-use OpenSpout\Reader\Exception\ReaderNotOpenedException;
-use Throwable;
+use Modules\Management\Transfers\Imports\Permission\Traits\EncoderMethods;
 
 final class PermissionImport extends AbstractImport implements Importable
 {
+    use EncoderMethods;
+
+    const DTO = PermissionImportDTO::class;
+
+    protected ClosureHandler $handler;
+    protected LanguageRepository $languageRepository;
     protected PermissionRepository $permissionRepository;
 
     public function __construct()
     {
         $this->chunkSize = 100;
+        $this->withoutHeaders = false;
+        $this->handler = new ClosureHandler();
+        $this->languageRepository = new LanguageRepository();
         $this->permissionRepository = new PermissionRepository();
     }
 
-    /**
-     * @throws IOException
-     * @throws Throwable
-     * @throws ReaderNotOpenedException
-     * @throws UnsupportedTypeException
-     */
     public function import(string $path): bool
     {
-        try {
-            $existingPermissions = $this->permissionRepository->all()->pluck('name')->toArray();
+        $this->insert($this->data($path));
 
-            $permissionData = $this->generatorData($path, PermissionImportDTO::class, function ($item) use ($existingPermissions) {
-                return in_array($item[1], $existingPermissions);
-            });
-
-            $this->insert($permissionData);
-
-            return true;
-        } catch (Throwable $exception) {
-            throw new $exception;
-        }
+        return true;
     }
 
-    protected function insert(Generator $collection): void
+    public function insert(Generator $collection): void
     {
-        $permissions = [];
+        $permissions = $this->insertable($collection);
 
-        /**
-         * @var PermissionImportDTO $permission
-         */
-        foreach ($collection as $permission) {
-            $permissions[] = $permission->toArray();
-        }
-
-        (new ClosureHandler)->handle(function () use ($permissions) {
-            $permissionChunk = array_chunk($permissions, $this->chunkSize);
-
+        $this->handler->handle(function () use ($permissions) {
+            $uniqueColumns = ['name', 'guard_name'];
             $updateColumns = ['description', 'is_default'];
 
-            foreach ($permissionChunk as $chunk) {
-                Permission::upsert($chunk, ['name', 'guard_name'], $updateColumns);
+            $chunks = array_chunk($permissions, $this->chunkSize);
+
+            foreach ($chunks as $chunk) {
+                Permission::upsert($chunk, $uniqueColumns, $updateColumns);
             }
         });
     }

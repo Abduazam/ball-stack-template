@@ -4,7 +4,7 @@ namespace App\Contracts\Traits\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-trait SoftDeleting
+trait SoftDeletable
 {
     use SoftDeletes;
 
