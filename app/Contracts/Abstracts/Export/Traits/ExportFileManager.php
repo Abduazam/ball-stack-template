@@ -5,7 +5,7 @@ namespace App\Contracts\Abstracts\Export\Traits;
 use App\Contracts\Classes\Livewire\ModelTranslation;
 use App\Contracts\Enums\Immutables\Export\ExportTypeEnum;
 
-trait FileManageTrait
+trait ExportFileManager
 {
     protected string $path;
 

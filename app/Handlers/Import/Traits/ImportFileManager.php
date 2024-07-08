@@ -2,7 +2,7 @@
 
 namespace App\Handlers\Import\Traits;
 
-trait FileManageTrait
+trait ImportFileManager
 {
     const FOLDER = 'imports';
 

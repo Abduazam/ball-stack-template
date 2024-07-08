@@ -4,11 +4,11 @@ namespace App\Contracts\Abstracts\Export;
 
 use Generator;
 use Illuminate\Database\Eloquent\Collection;
-use App\Contracts\Abstracts\Export\Traits\FileManageTrait;
+use App\Contracts\Abstracts\Export\Traits\ExportFileManager;
 
 abstract class AbstractExport
 {
-    use FileManageTrait;
+    use ExportFileManager;
 
     protected array $headers = [];
 

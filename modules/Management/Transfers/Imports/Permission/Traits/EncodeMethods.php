@@ -2,27 +2,17 @@
 
 namespace Modules\Management\Transfers\Imports\Permission\Traits;
 
+use App\Contracts\Traits\Import\Languageable;
+use App\Contracts\Traits\Import\Permissible;
 use Generator;
 use Modules\Management\App\DTOs\Permission\PermissionImportDTO;
 use OpenSpout\Common\Exception\IOException;
 use OpenSpout\Common\Exception\UnsupportedTypeException;
 use OpenSpout\Reader\Exception\ReaderNotOpenedException;
 
-trait EncoderMethods
+trait EncodeMethods
 {
-    private function existingPermissions(): array
-    {
-        return $this->permissionRepository->all()
-            ->pluck('name')
-            ->toArray();
-    }
-
-    private function existingLanguages(): array
-    {
-        return $this->languageRepository->all()
-            ->pluck('slug')
-            ->toArray();
-    }
+    use Permissible, Languageable;
 
     /**
      * @throws IOException

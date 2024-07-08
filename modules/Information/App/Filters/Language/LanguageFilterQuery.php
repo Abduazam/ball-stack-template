@@ -2,10 +2,10 @@
 
 namespace Modules\Information\App\Filters\Language;
 
-use App\Contracts\Abstracts\Filter\FilterQuery;
+use App\Contracts\Abstracts\Filter\AbstractFilterQuery;
 use Modules\Information\App\Models\Language\Language;
 
-final class LanguageFilterQuery extends FilterQuery
+final class LanguageFilterQuery extends AbstractFilterQuery
 {
     public function __construct()
     {

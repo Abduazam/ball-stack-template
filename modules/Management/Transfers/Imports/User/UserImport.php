@@ -10,11 +10,11 @@ use Generator;
 use Modules\Management\App\DTOs\User\UserImportDTO;
 use Modules\Management\App\Repositories\Role\RoleRepository;
 use Modules\Management\App\Repositories\User\UserRepository;
-use Modules\Management\Transfers\Imports\User\Traits\EncoderMethods;
+use Modules\Management\Transfers\Imports\User\Traits\EncodeMethods;
 
 final class UserImport extends AbstractImport implements Importable
 {
-    use EncoderMethods;
+    use EncodeMethods;
 
     const DTO = UserImportDTO::class;
 

@@ -4,11 +4,11 @@ namespace Modules\Management\App\DTOs\Permission;
 
 use App\Contracts\Abstracts\DTO\AbstractObjectTransfer;
 use App\Contracts\Interfaces\DTO\ObjectTransferable;
-use App\Contracts\Traits\DTOs\Guardable\GuardName;
+use App\Contracts\Traits\DTO\Guardable;
 
 readonly class PermissionImportDTO extends AbstractObjectTransfer implements ObjectTransferable
 {
-    use GuardName;
+    use Guardable;
 
     public string $name;
     public array $description;

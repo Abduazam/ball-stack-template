@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Contracts\Traits\DTOs\Guardable;
+namespace App\Contracts\Traits\DTO;
 
-trait GuardName
+trait Guardable
 {
     private function guardName(): string
     {

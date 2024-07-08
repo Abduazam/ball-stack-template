@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Contracts\ValueObjects;
+namespace App\Contracts\ValueObjects\Cache;
 
 use App\Contracts\Enums\Immutables\Cache\CacheTimeEnum;
 use Exception;

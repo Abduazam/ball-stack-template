@@ -2,6 +2,7 @@
 
 namespace Modules\Management\Transfers\Imports\Role\Traits;
 
+use App\Contracts\Traits\Import\Permissible;
 use Generator;
 use Illuminate\Database\Eloquent\Collection;
 use Modules\Management\App\DTOs\Role\RoleImportDTO;
@@ -9,14 +10,9 @@ use OpenSpout\Common\Exception\IOException;
 use OpenSpout\Common\Exception\UnsupportedTypeException;
 use OpenSpout\Reader\Exception\ReaderNotOpenedException;
 
-trait EncoderMethods
+trait EncodeMethods
 {
-    private function existingPermissions(): array
-    {
-        return $this->permissionRepository->all()
-            ->pluck('name')
-            ->toArray();
-    }
+    use Permissible;
 
     private function insertingRoles(array $roles): Collection
     {

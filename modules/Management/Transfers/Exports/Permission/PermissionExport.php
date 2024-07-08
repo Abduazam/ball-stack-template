@@ -4,6 +4,7 @@ namespace Modules\Management\Transfers\Exports\Permission;
 
 use App\Contracts\Abstracts\Export\AbstractExport;
 use App\Contracts\Interfaces\Export\Exportable;
+use App\Contracts\Traits\Export\Translationable;
 use Generator;
 use Modules\Information\App\Repositories\Language\LanguageRepository;
 use Modules\Management\App\Repositories\Permissions\PermissionRepository;
@@ -15,6 +16,8 @@ use Rap2hpoutre\FastExcel\FastExcel;
 
 final class PermissionExport extends AbstractExport implements Exportable
 {
+    use Translationable;
+
     public LanguageRepository $languageRepository;
     public PermissionRepository $permissionRepository;
 
@@ -58,9 +61,7 @@ final class PermissionExport extends AbstractExport implements Exportable
             'is_default' => $this->head('fields.columns.permission.is_default'),
         ];
 
-        foreach ($this->languageRepository->all() as $language) {
-            $this->headers[$language->slug] = $language->slug;
-        }
+        $this->bindHeaders();
     }
 
     public function asArray($item): array

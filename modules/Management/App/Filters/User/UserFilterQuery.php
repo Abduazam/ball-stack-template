@@ -2,10 +2,10 @@
 
 namespace Modules\Management\App\Filters\User;
 
-use App\Contracts\Abstracts\Filter\FilterQuery;
+use App\Contracts\Abstracts\Filter\AbstractFilterQuery;
 use App\Models\User;
 
-final class UserFilterQuery extends FilterQuery
+final class UserFilterQuery extends AbstractFilterQuery
 {
     public function __construct()
     {

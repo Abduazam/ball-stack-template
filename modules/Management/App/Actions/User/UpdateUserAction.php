@@ -3,8 +3,8 @@
 namespace Modules\Management\App\Actions\User;
 
 use App\Contracts\Interfaces\Action\Actionable;
-use App\Contracts\Traits\Actions\Imageable\ImageDeletable;
-use App\Contracts\Traits\Actions\Imageable\ImageStorable;
+use App\Contracts\Traits\Action\Imageable\ImageDeletable;
+use App\Contracts\Traits\Action\Imageable\ImageStorable;
 use App\Models\User;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Modules\Management\App\DTOs\User\UserDTO;

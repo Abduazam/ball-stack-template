@@ -2,10 +2,10 @@
 
 namespace Modules\Management\App\Filters\Permission;
 
-use App\Contracts\Abstracts\Filter\FilterQuery;
+use App\Contracts\Abstracts\Filter\AbstractFilterQuery;
 use Modules\Management\App\Models\Permission\Permission;
 
-final class PermissionFilterQuery extends FilterQuery
+final class PermissionFilterQuery extends AbstractFilterQuery
 {
     public function __construct()
     {

@@ -8,7 +8,7 @@ use OpenSpout\Common\Exception\IOException;
 use OpenSpout\Common\Exception\UnsupportedTypeException;
 use OpenSpout\Reader\Exception\ReaderNotOpenedException;
 
-trait EncoderMethods
+trait EncodeMethods
 {
     /**
      * @throws IOException

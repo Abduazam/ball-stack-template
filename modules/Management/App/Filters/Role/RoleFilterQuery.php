@@ -2,10 +2,10 @@
 
 namespace Modules\Management\App\Filters\Role;
 
-use App\Contracts\Abstracts\Filter\FilterQuery;
+use App\Contracts\Abstracts\Filter\AbstractFilterQuery;
 use Modules\Management\App\Models\Role\Role;
 
-final class RoleFilterQuery extends FilterQuery
+final class RoleFilterQuery extends AbstractFilterQuery
 {
     public function __construct()
     {

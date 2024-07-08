@@ -3,6 +3,7 @@
 namespace Modules\Management\App\Observers\User;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class UserObserver
 {
@@ -44,6 +45,10 @@ class UserObserver
      */
     public function forceDeleted(User $user): void
     {
+        if ($user->image) {
+            Storage::disk('public')->delete($user->image->path);
+        }
+
         cache()->forget('users');
         cache()->forget('user.' . $user->id);
     }

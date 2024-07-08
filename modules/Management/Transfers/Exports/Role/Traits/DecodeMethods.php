@@ -4,7 +4,7 @@ namespace Modules\Management\Transfers\Exports\Role\Traits;
 
 use Modules\Management\App\Models\Role\Role;
 
-trait DecoderMethods
+trait DecodeMethods
 {
     private function users(Role $role): ?string
     {

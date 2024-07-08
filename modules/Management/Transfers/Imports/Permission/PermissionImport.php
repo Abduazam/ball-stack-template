@@ -10,11 +10,11 @@ use Modules\Information\App\Repositories\Language\LanguageRepository;
 use Modules\Management\App\DTOs\Permission\PermissionImportDTO;
 use Modules\Management\App\Models\Permission\Permission;
 use Modules\Management\App\Repositories\Permissions\PermissionRepository;
-use Modules\Management\Transfers\Imports\Permission\Traits\EncoderMethods;
+use Modules\Management\Transfers\Imports\Permission\Traits\EncodeMethods;
 
 final class PermissionImport extends AbstractImport implements Importable
 {
-    use EncoderMethods;
+    use EncodeMethods;
 
     const DTO = PermissionImportDTO::class;
 

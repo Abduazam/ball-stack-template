@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Contracts\Traits\Actions\Imageable;
+namespace App\Contracts\Traits\Action\Imageable;
 
 use Illuminate\Support\Facades\Storage;
 

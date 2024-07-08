@@ -23,16 +23,3 @@ if (! function_exists('translation')) {
         return $value;
     }
 }
-
-if (! function_exists('money')) {
-    /**
-     * Converts straight number to money format.
-     *
-     * @param string $value
-     * @return string|null
-     */
-    function money(string $value): ?string
-    {
-        return number_format($value);
-    }
-}

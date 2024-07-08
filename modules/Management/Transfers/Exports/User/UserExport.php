@@ -6,7 +6,7 @@ use App\Contracts\Abstracts\Export\AbstractExport;
 use App\Contracts\Interfaces\Export\Exportable;
 use Generator;
 use Modules\Management\App\Repositories\User\UserRepository;
-use Modules\Management\Transfers\Exports\User\Traits\DecoderMethods;
+use Modules\Management\Transfers\Exports\User\Traits\DecodeMethods;
 use OpenSpout\Common\Exception\InvalidArgumentException;
 use OpenSpout\Common\Exception\IOException;
 use OpenSpout\Common\Exception\UnsupportedTypeException;
@@ -15,7 +15,7 @@ use Rap2hpoutre\FastExcel\FastExcel;
 
 final class UserExport extends AbstractExport implements Exportable
 {
-    use DecoderMethods;
+    use DecodeMethods;
 
     public UserRepository $userRepository;
 

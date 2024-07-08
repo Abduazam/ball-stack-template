@@ -10,11 +10,11 @@ use Modules\Management\App\DTOs\Role\RoleImportDTO;
 use Modules\Management\App\Models\Role\Role;
 use Modules\Management\App\Repositories\Permissions\PermissionRepository;
 use Modules\Management\App\Repositories\Role\RoleRepository;
-use Modules\Management\Transfers\Imports\Role\Traits\EncoderMethods;
+use Modules\Management\Transfers\Imports\Role\Traits\EncodeMethods;
 
 final class RoleImport extends AbstractImport implements Importable
 {
-    use EncoderMethods;
+    use EncodeMethods;
 
     const DTO = RoleImportDTO::class;
 

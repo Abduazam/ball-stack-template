@@ -4,7 +4,7 @@ namespace Modules\Management\Transfers\Exports\User\Traits;
 
 use App\Models\User;
 
-trait DecoderMethods
+trait DecodeMethods
 {
     private function password(): null
     {

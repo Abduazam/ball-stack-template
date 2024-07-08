@@ -5,14 +5,14 @@ namespace App\Contracts\Abstracts\Filter;
 use App\Contracts\Enums\Immutables\Cache\CacheTimeEnum;
 use App\Contracts\Traits\Filter\FilterQueryCachable;
 use App\Contracts\Traits\Filter\FilterQueryLimitable;
-use App\Contracts\ValueObjects\CacheTime;
+use App\Contracts\ValueObjects\Cache\CacheTime;
 use Closure;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
-abstract class FilterQuery
+abstract class AbstractFilterQuery
 {
     use FilterQueryCachable, FilterQueryLimitable;
 

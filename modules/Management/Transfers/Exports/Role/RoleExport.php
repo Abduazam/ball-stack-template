@@ -6,7 +6,7 @@ use App\Contracts\Abstracts\Export\AbstractExport;
 use App\Contracts\Interfaces\Export\Exportable;
 use Generator;
 use Modules\Management\App\Repositories\Role\RoleRepository;
-use Modules\Management\Transfers\Exports\Role\Traits\DecoderMethods;
+use Modules\Management\Transfers\Exports\Role\Traits\DecodeMethods;
 use OpenSpout\Common\Exception\InvalidArgumentException;
 use OpenSpout\Common\Exception\IOException;
 use OpenSpout\Common\Exception\UnsupportedTypeException;
@@ -15,7 +15,7 @@ use Rap2hpoutre\FastExcel\FastExcel;
 
 final class RoleExport extends AbstractExport implements Exportable
 {
-    use DecoderMethods;
+    use DecodeMethods;
 
     public RoleRepository $roleRepository;
 

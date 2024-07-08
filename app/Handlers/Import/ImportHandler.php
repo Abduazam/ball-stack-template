@@ -4,7 +4,7 @@ namespace App\Handlers\Import;
 
 use App\Contracts\Classes\Import\ImportObject;
 use App\Contracts\Interfaces\Import\Importable;
-use App\Handlers\Import\Traits\FileManageTrait;
+use App\Handlers\Import\Traits\ImportFileManager;
 use Illuminate\Bus\Batch;
 use Illuminate\Support\Facades\Bus;
 use Modules\Settings\App\DTOs\Import\ImportDTO;
@@ -13,7 +13,7 @@ use Throwable;
 
 class ImportHandler
 {
-    use FileManageTrait;
+    use ImportFileManager;
 
     protected ImportDTO $dto;
     protected Importable $import;

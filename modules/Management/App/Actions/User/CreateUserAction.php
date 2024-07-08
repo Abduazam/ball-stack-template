@@ -3,7 +3,7 @@
 namespace Modules\Management\App\Actions\User;
 
 use App\Contracts\Interfaces\Action\Actionable;
-use App\Contracts\Traits\Actions\Imageable\ImageStorable;
+use App\Contracts\Traits\Action\Imageable\ImageStorable;
 use App\Models\User;
 use Modules\Management\App\DTOs\User\UserDTO;
 

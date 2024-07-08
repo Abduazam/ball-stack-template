@@ -8,11 +8,11 @@ use App\Handlers\Closure\ClosureHandler;
 use Generator;
 use Modules\Information\App\DTOs\Language\LanguageImportDTO;
 use Modules\Information\App\Models\Language\Language;
-use Modules\Information\Transfers\Imports\Language\Traits\EncoderMethods;
+use Modules\Information\Transfers\Imports\Language\Traits\EncodeMethods;
 
 final class LanguageImport extends AbstractImport implements Importable
 {
-    use EncoderMethods;
+    use EncodeMethods;
 
     const DTO = LanguageImportDTO::class;
 
